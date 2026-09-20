@@ -1,0 +1,176 @@
+     /*===================================================================*/        /*RADD*/
+     /*  >>PRE-COMPILER<<                                                 */        /*RADD*/
+     /*    >>CRTCMD<<  CRTBNDCL      PGM(&LI/&OB) +                       */        /*RADD*/
+     /*                              SRCFILE(&SL/&SF)  +                  */        /*RADD*/
+     /*                              SRCMBR(&SM);                         */        /*RADD*/
+     /*    >>COMPILE<<                                                    */        /*RADD*/
+     /*      >>PARM<< DBGVIEW(*LIST);                                     */        /*RADD*/
+     /*    >>END-COMPILE<<                                                */        /*RADD*/
+     /*    >>LINK<<                                                       */        /*RADD*/
+     /*      >>PARM<< DFTACTGRP(*NO);                                     */        /*RADD*/
+     /*      >>PARM<< ACTGRP(*NEW);                                       */        /*RADD*/
+     /*    >>END-LINK<<                                                   */        /*RADD*/
+     /*    >>EXECUTE<<                                                    */        /*RADD*/
+     /*  >>END-PRE-COMPILER<<                                             */        /*RADD*/
+     /*===================================================================*/        /*RADD*/
+             PGM        PARM(&PRDLIB)                                                 /*RADD*/
+                                                                                      /*RADD*/
+             DCL        VAR(&PRDLIB    ) TYPE(*CHAR) LEN( 10)                         /*RADD*/
+             DCL        VAR(&SRCLIB    ) TYPE(*CHAR) LEN( 10)                         /*RADD*/
+             DCL        VAR(&SRCFILE   ) TYPE(*CHAR) LEN( 10) VALUE(QIFS2)            /*RADD*/
+             DCL        VAR(&TGTRLS    ) TYPE(*CHAR) LEN( 10) VALUE(*CURRENT)         /*RADD*/
+             DCL        VAR(&TMPLIB    ) TYPE(*CHAR) LEN( 10) VALUE(QTEMP)            /*RADD*/
+             DCL        VAR(&DBGVIEW   ) TYPE(*CHAR) LEN( 10) VALUE(*LIST)            /*RADD*/
+             DCL        VAR(&LANGUAGE  ) TYPE(*CHAR) LEN( 10) VALUE(ENG)              /*RADD*/
+             DCL        VAR(&MSGF      ) TYPE(*CHAR) LEN( 10)                         /*RADD*/
+             DCL        VAR(&MSGFPGM   ) TYPE(*CHAR) LEN( 10)                         /*RADD*/
+             DCL        VAR(&TEXT      ) TYPE(*CHAR) LEN( 50)                         /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Test parameter: &PRDLIB                            */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             CHGVAR     VAR(&PRDLIB) VALUE(&PRDLIB)                                   /*RADD*/
+             MONMSG     MSGID(MCH0000) EXEC(DO)                                       /*RADD*/
+                SNDPGMMSG  MSGID(CPF9897) MSGF(QCPFMSG) +
+                             MSGDTA('Missing parameter: Install library. +
+                             Syntax:  CALL A_INSTALL ''instLibName''') +
+                             TOPGMQ(*PRV (*CTLBDY)) MSGTYPE(*ESCAPE)                  /*RADD*/
+                RETURN                                                                /*RADD*/
+             ENDDO                                                        /*E01*/   /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Check source library                               */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             RTVOBJD    OBJ(*LIBL/&SRCFILE) OBJTYPE(*FILE) RTNLIB(&SRCLIB)            /*RADD*/
+             MONMSG     MSGID(CPF9801) EXEC(DO)                                       /*RADD*/
+                SNDPGMMSG  MSGID(CPF9897) MSGF(QCPFMSG) +
+                             MSGDTA('Source library not found. Please add +
+                             source library to library list.') +
+                             TOPGMQ(*PRV (*CTLBDY)) MSGTYPE(*ESCAPE)                  /*RADD*/
+                RETURN                                                                /*RADD*/
+             ENDDO                                                        /*E01*/   /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Start of installation process                      */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Check dependencies: BASICS1                        */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             CHKOBJ     OBJ(*LIBL/BASICS1) OBJTYPE(*SRVPGM)                           /*RADD*/
+             MONMSG     MSGID(CPF9801) EXEC(DO)                           /*B01*/   /*RADD*/
+                SNDPGMMSG  MSGID(CPF9897) MSGF(QCPFMSG) +
+                           MSGDTA('Service program BASICS1 not found!') +
+                           TOPGMQ(*PRV (*CTLBDY)) MSGTYPE(*ESCAPE)                    /*RADD*/
+             ENDDO                                                        /*E01*/   /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Install IFS service program                        */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             SNDPGMMSG  MSGDTA('=> Installing IFS2 service program ...') +
+                          MSGID(CPF9897) MSGF(QCPFMSG) +
+                          TOPGMQ(*EXT) MSGTYPE(*STATUS)                               /*RADD*/
+                                                                                      /*RADD*/
+             CHGVAR     VAR(&TEXT) VALUE('Tools/400: IFS-Procedures')                 /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Create modules                                     */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R01   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R01   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R02   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R02   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R03   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R03   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R04   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R04   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R05   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R05   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R06   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R06   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R07   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R07   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             CRTRPGMOD  MODULE(&PRDLIB/IFS2R99   ) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*MODULE) +
+                          DBGVIEW(&DBGVIEW) TRUNCNBR(*NO) TGTRLS(&TGTRLS)             /*RADD*/
+             DLTSPLF    FILE(IFS2R99   ) JOB(*) SPLNBR(*LAST)                         /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Create service programs                            */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             CRTSRVPGM  SRVPGM(&PRDLIB/IFS2) +
+                          TEXT(&TEXT) +
+                          MODULE(+
+                                 &PRDLIB/IFS2R01  +
+                                 &PRDLIB/IFS2R02  +
+                                 &PRDLIB/IFS2R03  +
+                                 &PRDLIB/IFS2R04  +
+                                 &PRDLIB/IFS2R05  +
+                                 &PRDLIB/IFS2R06  +
+                                 &PRDLIB/IFS2R07  +
+                                 &PRDLIB/IFS2R99  +
+                                 ) +
+                          EXPORT(*SRCFILE) +
+                          SRCFILE(&SRCLIB/&SRCFILE) +
+                          SRCMBR(*SRVPGM) +
+                          BNDSRVPGM(*LIBL/BASICS1   +
+                                    ) +
+                          BNDDIR(*LIBL/QC2LE) +
+                          USRPRF(*USER) +
+                          ACTGRP(*CALLER) +
+                          DETAIL(*BASIC) +
+                          ALWUPD(*YES) +
+                          ALWLIBUPD(*YES) +
+                          TGTRLS(&TGTRLS)                                             /*RADD*/
+             DLTSPLF    FILE(IFS2) JOB(*) SPLNBR(*LAST)                               /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Delete obsolete modules                            */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R01)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R02)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R03)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R04)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R05)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R06)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R07)                                       /*RADD*/
+             DLTMOD     MODULE(&PRDLIB/IFS2R99)                                       /*RADD*/
+                                                                                      /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             /* Create message file                                */               /*RADD*/
+             /*----------------------------------------------------*/               /*RADD*/
+             CHGVAR     VAR(&MSGF   ) VALUE('IFS2'   *CAT &LANGUAGE)                  /*RADD*/
+             CHGVAR     VAR(&MSGFPGM) VALUE('A_MSG_' *CAT &LANGUAGE)                  /*RADD*/
+                                                                                      /*RADD*/
+             CRTMSGF    MSGF(&PRDLIB/&MSGF) TEXT(&TEXT)                               /*RADD*/
+                                                                                      /*RADD*/
+             CRTBNDCL   PGM(&TMPLIB/&MSGFPGM) +
+                          SRCFILE(&SRCLIB/&SRCFILE) SRCMBR(*PGM)                      /*RADD*/
+             DLTSPLF    FILE(&MSGFPGM) JOB(*) SPLNBR(*LAST)                           /*RADD*/
+                                                                                      /*RADD*/
+             CALL       PGM(&TMPLIB/&MSGFPGM)                                         /*RADD*/
+                                                                                      /*RADD*/
+             DLTPGM     PGM(&TMPLIB/&MSGFPGM)                                         /*RADD*/
+                                                                                      /*RADD*/
+             ENDPGM                                                                   /*RADD*/

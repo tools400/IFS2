@@ -1,0 +1,47 @@
+     /*===================================================================*/        /*RADD*/
+     /*  >>PRE-COMPILER<<                                                 */        /*RADD*/
+     /*                                                                   */        /*RADD*/
+     /*    >>CRTCMD<<  CRTBNDCL      PGM(&LI/&OB) +                       */        /*RADD*/
+     /*                              SRCFILE(&SL/&SF)  +                  */        /*RADD*/
+     /*                              SRCMBR(&SM);                         */        /*RADD*/
+     /*                                                                   */        /*RADD*/
+     /*    >>COMPILE<<                                                    */        /*RADD*/
+     /*      >>PARM<< DBGVIEW(*LIST);                                     */        /*RADD*/
+     /*    >>END-COMPILE<<                                                */        /*RADD*/
+     /*                                                                   */        /*RADD*/
+     /*    >>LINK<<                                                       */        /*RADD*/
+     /*      >>PARM<< DFTACTGRP(*NO);                                     */        /*RADD*/
+     /*      >>PARM<< ACTGRP(*NEW);                                       */        /*RADD*/
+     /*    >>END-LINK<<                                                   */        /*RADD*/
+     /*                                                                   */        /*RADD*/
+     /*    >>EXECUTE<<                                                    */        /*RADD*/
+     /*                                                                   */        /*RADD*/
+     /*  >>END-PRE-COMPILER<<                                             */        /*RADD*/
+     /*===================================================================*/        /*RADD*/
+             PGM                                                                      /*RADD*/
+                                                                                      /*RADD*/
+             CRTMSGDS   RANGE(*FIRST  *LAST  ) MSGF(RADDATZ/IFS2GER) +
+                          FILE(RADDATZ/QIFS2  ) REPLACE(*YES) +
+                          TYPE(*ILERPG) DEFINE(*NO)                                   /*RADD*/
+                                                                                      /*RADD*/
+             RMVM       FILE(RADDATZ/QIFS2  ) MBR(A_MSG_GER#)                         /*RADD*/
+             MONMSG     MSGID(CPF7310)                                                /*RADD*/
+             RNMM       FILE(RADDATZ/QIFS2  ) MBR(A_MSG_GER ) +
+                          NEWMBR(A_MSG_GER#)                                          /*RADD*/
+             MONMSG     MSGID(CPF3178)                                                /*RADD*/
+                                                                                      /*RADD*/
+             CRTMSGDS   RANGE(*FIRST *LAST) MSGF(RADDATZ/IFS2GER) +
+                          FILE(RADDATZ/QIFS2  ) MBR(A_MSG_GER ) +
+                          TYPE(*CLLE) DEFINE(*NO)                                     /*RADD*/
+                                                                                      /*RADD*/
+             RMVM       FILE(RADDATZ/QIFS2  ) MBR(A_MSG_ENG#)                         /*RADD*/
+             MONMSG     MSGID(CPF7310)                                                /*RADD*/
+             RNMM       FILE(RADDATZ/QIFS2  ) MBR(A_MSG_ENG ) +
+                          NEWMBR(A_MSG_ENG#)                                          /*RADD*/
+             MONMSG     MSGID(CPF3178)                                                /*RADD*/
+                                                                                      /*RADD*/
+             CRTMSGDS   RANGE(*FIRST *LAST) MSGF(RADDATZ/IFS2ENG) +
+                          FILE(RADDATZ/QIFS2  ) MBR(A_MSG_ENG ) +
+                          TYPE(*CLLE) DEFINE(*NO)                                     /*RADD*/
+                                                                                      /*RADD*/
+             ENDPGM                                                                   /*RADD*/

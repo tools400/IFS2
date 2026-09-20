@@ -1,0 +1,92 @@
+/* ==================================================== */                            /* RADD */
+/* >>PRE-COMPILER<<                                     */                            /* RADD */
+/*                                                      */                            /* RADD */
+/*   >>CRTCMD<< CRTSRVPGM    SRVPGM(&LI/&OB);           */                            /* RADD */
+/*                                                      */                            /* RADD */
+/*   >>LINK<<                                           */                            /* RADD */
+/*     >>PARM<< MODULE( +                               */                            /* RADD */
+/*                     &LI/IFS2R01   +                  */                            /* RADD */
+/*                     &LI/IFS2R02   +                  */                            /* RADD */
+/*                     &LI/IFS2R03   +                  */                            /* RADD */
+/*                     &LI/IFS2R04   +                  */                            /* RADD */
+/*                     &LI/IFS2R05   +                  */                            /* RADD */
+/*                     &LI/IFS2R06   +                  */                            /* RADD */
+/*                     &LI/IFS2R07   +                  */                            /* RADD */
+/*                     &LI/IFS2R99   +                  */                            /* RADD */
+/*                                   );                 */                            /* RADD */
+/*     >>PARM<< BNDDIR(*LIBL/QC2LE   );                 */                            /* RADD */
+/*     >>PARM<< BNDSRVPGM(*LIBL/BASICS1   );            */                            /* RADD */
+/*     >>PARM<< EXPORT(*SRCFILE);                       */                            /* RADD */
+/*     >>PARM<< SRCFILE(&SL/&SF);                       */                            /* RADD */
+/*     >>PARM<< SRCMBR(&SM);                            */                            /* RADD */
+/*     >>PARM<< USRPRF(*USER);                          */                            /* RADD */
+/*     >>PARM<< ACTGRP(*CALLER);                        */                            /* RADD */
+/*     >>PARM<< DETAIL(*BASIC);                         */                            /* RADD */
+/*     >>PARM<< TGTRLS(V6R1M0);                         */                            /* RADD */
+/*     >>PARM<< TEXT('Tools/400: Stream File and +      */                            /* RADD */
+/*                    Directory Procedures');           */                            /* RADD */
+/*   >>END-LINK<<                                       */                            /* RADD */
+/*                                                      */                            /* RADD */
+/*   >>EXECUTE<<                                        */                            /* RADD */
+/*                                                      */                            /* RADD */
+/* >>END-PRE-COMPILER<<                                 */                            /* RADD */
+/* ==================================================== */                            /* RADD */
+                                                                                      /* RADD */
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('Tools/400 IFS2')                                /* RADD */
+                                                                                      /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_exist')                                              /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_open')                                               /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_close')                                              /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_delete')                                             /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_move')                                               /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_rename')                                             /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_copy')                                               /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_seek')                                               /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_read')                                               /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_write')                                              /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_readLine')                                           /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_writeLine')                                          /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getSize')                                            /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getSizeH')                                           /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_setSize')                                            /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_setSizeH')                                           /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getCreationTime')                                    /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getDataChangeTime')                                  /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getUniqueID')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getUniqueIDH')                                       /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getID')                                              /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getIDH')                                             /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_getTempPath')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsFile_compare')                                            /* RADD */
+                                                                                      /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_exist')                                         /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_create')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_remove')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R01_ifsDirectory_rename')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_read')                                          /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_isEmpty')                                       /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_getCurrent')                                    /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_setCurrent')                                    /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_fixSyntax')                                     /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_getCreationTime')                               /* RADD */
+  EXPORT SYMBOL('IFS2R02_ifsDirectory_getContentChangeTime')                          /* RADD */
+                                                                                      /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_getName')                                            /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_getDirectory')                                       /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_getExtension')                                       /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_removeExtension')                                    /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_fixSyntax')                                          /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isDirectory')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isFile')                                             /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isAbsolute')                                         /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isRelative')                                         /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isNameOnly')                                         /* RADD */
+  EXPORT SYMBOL('IFS2R03_ifsPath_isPattern')                                          /* RADD */
+                                                                                      /* RADD */
+  EXPORT SYMBOL('IFS2R06_ifsType_isFile')                                             /* RADD */
+  EXPORT SYMBOL('IFS2R06_ifsType_isDirectory')                                        /* RADD */
+  EXPORT SYMBOL('IFS2R06_ifsType_isSymbolicLink')                                     /* RADD */
+                                                                                      /* RADD */
+  EXPORT SYMBOL('IFS2R07_ifsSymLnk_getRealType')                                      /* RADD */
+                                                                                      /* RADD */
+ENDPGMEXP                                                                             /* RADD */

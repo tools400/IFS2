@@ -1,0 +1,1499 @@
+             PGM        PARM(&I_LIB)
+
+             DCL        VAR(&I_LIB     ) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&LIB       ) TYPE(*CHAR) LEN(10)
+
+             CHGVAR     VAR(&LIB       ) VALUE(&I_LIB)
+             MONMSG     MSGID(MCH3601) EXEC(DO)
+               RMVMSG     PGMQ(*SAME (*)) CLEAR(*ALL)
+               CHGVAR     VAR(&LIB) VALUE('RADDATZ   ')
+             ENDDO
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1000                    */
+     /* Fehler beim Öffnen der Datei '&1' aufgetreten.              */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1000) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1000) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Öffnen der Datei ''&1'' aufgetreten.'                    +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch die Datei ''&1'' mit der Un-
+ix open()-Funktion zu öffnen ist ein Fehler mit Fehlercode &2 aufgetre-
+ten. Der Fehlertext lautet: ''&3'''                                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1001                    */
+     /* Fehler beim Schließen Datei '&1' aufgetreten.               */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1001) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1001) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Schließen Datei ''&1'' aufgetreten.'                     +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch die Datei ''&1'' mit der Un-
+ix close()-Funktion zu schließen ein Fehler mit Fehlercode &2 aufgetre-
+ten. Der Fehlertext lautet: ''&3'''                                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1002                    */
+     /* Fehler beim Schreiben in Datei '&1' aufgetreten.            */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1002) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1002) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Schreiben in Datei ''&1'' aufgetreten.'                  +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix write()-Funkti-
+on in die Datei ''&1'' zu schreiben ist ein Fehler mit Fehlercode &2 a-
+ufgetreten. Der Fehlertext lautet: ''&3'''                            +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1003                    */
+     /* Fehler beim Verschieben der Datei '&1' nach '&3' aufgetrete */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1003) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1003) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Verschieben der Datei ''&1'' nach ''&3'' aufgetreten.'   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix Qp0lRenameKeep-
+()-Funktion die Datei ''&1'' nach ''&3'' zu verschieben ist ein Fehler-
+ mit Fehlercode &3 aufgetreten. Der Fehlertext lautet: ''&4'''        +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 180) +
+                    (*CHAR 180) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1004                    */
+     /* Fehler beim Lesen aus Datei '&1' aufgetreten.               */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1004) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1004) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Lesen aus Datei ''&1'' aufgetreten.'                     +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix read()-Funktio-
+n Daten aus der Datei ''&1'' zu lesen ist ein Fehler mit Fehlercode &2-
+ aufgetreten. Der Fehlertext lautet: ''&3'''                          +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1005                    */
+     /* Fehler beim Löschen der Datei '&1' aufgetreten.             */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1005) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1005) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Löschen der Datei ''&1'' aufgetreten.'                   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix unlink()-Funkt-
+ion die Datei ''&1'' zu löschen ist ein Fehler mit Fehlercode &2 aufge-
+treten. Der Fehlertext lautet: ''&3'''                                +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1006                    */
+     /* Fehler beim Ermitteln der Größe der Datei '&1' aufgetreten. */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1006) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1006) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der Größe der Datei ''&1'' aufgetreten.'       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Größe der Datei ''&1'' zu ermitteln ist ein Fehler mit Fehlercod-
+e &2 aufgetreten. Der Fehlertext lautet: ''&3'''                      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1007                    */
+     /* Fehler beim Ändern der Größe der Datei '&1' aufgetreten.    */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1007) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1007) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ändern der Größe der Datei ''&1'' aufgetreten.'          +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix ftruncate()-Fu-
+nktion die Größe der Datei ''&1'' zu verändern ist ein Fehler mit Fehl-
+ercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''                 +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1008                    */
+     /* Fehler beim Setzen der Schreib-/Leseposition der Datei '&1' */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1008) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1008) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Setzen der Schreib-/Leseposition der Datei ''&1'' aufgetr-
+eten.'                                                                +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix lseek()-Funkti-
+on die Position des Schreib-/Lesezeiger der Datei ''&2'' auf den neuen-
+ Offset &4 mit dem Bezugspunkt &5 zu setzen ist ein Fehler mit Fehlerc-
+ode &2 aufgetreten. Der Fehlertext lautet: ''&3'''                    +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                    (*DEC 010 0) +
+                    (*DEC 010 0) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1009                    */
+     /* Fehler beim Umbenennen der Datei '&1' in '&2' aufgetreten.  */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1009) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1009) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Umbenennen der Datei ''&1'' in ''&2'' aufgetreten.'      +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix Qp0lRenameKeep-
+()-Funktion die Datei ''&1'' in ''&2'' umzubenennen ist ein Fehler mit-
+ Fehlercode &3 aufgetreten. Der Fehlertext lautet: ''&4'''            +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 180) +
+                    (*CHAR 180) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1011                    */
+     /* Verzeichnis '&1' nicht vorhanden.                           */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1011) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1011) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Verzeichnis ''&1'' nicht vorhanden.'                                 +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Das angegebene Verzeichnis ''&1'' ist nicht-
+ vorhanden. &N &N Fehlerbehebung  :   Ein anderes Verzeichnis angeben -
+oder das Verzeichnis anlegen und die Anforderung wiederholen.'        +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1012                    */
+     /* Datei '&1' nicht gefunden.                                  */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1012) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1012) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Datei ''&1'' nicht gefunden.'                                        +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angegebene Datei ''&1'' ist nicht vorha-
+nden. &N &N Fehlerbehebung  :   Eine andere Datei angeben oder die Dat-
+ei anlegen und die Anforderung wiederholen. Möglicherweise fehlt auch -
+die Berechtigung für den Zugriff auf die Datei.'                      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1013                    */
+     /* Die angegebene Datei '&1' existiert bereits.                */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1013) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1013) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Die angegebene Datei ''&1'' existiert bereits.'                      +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angeforderte Aktion ist fehlgeschlagen,-
+ weil die angegebene Datei ''&1'' bereits existiert. &N &N Fehlerbeheb-
+ung  :   Einen anderen Dateinamen angeben oder die vorhandene Datei lö-
+schen und die Anforderung wiederholen.'                               +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1014                    */
+     /* Der Dateiname '&1' enthält ungültige Zeichen oder ein Verze */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1014) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1014) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der Dateiname ''&1'' enthält ungültige Zeichen oder ein Verzeichnis.'+
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angeforderte Aktion ist fehlgeschlagen,-
+ weil der angegebene Dateiname ''&1'' ungültige Zeichen oder ein Verze-
+ichnis beinhaltet. &N &N Fehlerbehebung  :   Den Dateinamen korrigiere-
+n und die Anforderung wiederholen.'                                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1016                    */
+     /* Pufferüberlauf beim Lesen aus der Datei '&1' aufgetreten.   */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1016) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1016) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Pufferüberlauf beim Lesen aus der Datei ''&1'' aufgetreten.'         +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch Daten aus der Datei ''&1'' -
+zu lesen ist ein Überlauf des angegebenen Lesepuffers aufgetreten, wei-
+l die angegebene Größe von &2 Byte nicht ausreichte, um alle Daten zu -
+lesen. &N &N Fehlerbehebung  :   Den an die Lesefunktion übergebenen P-
+uffer vergrößern und die Anforderung wiederholen.'                    +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1017                    */
+     /* Fehler beim Lesen des nächsten Eintrags aus dem Verzeichnis */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1017) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1017) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Lesen des nächsten Eintrags aus dem Verzeichnis ''&1'' au-
+fgetreten.'                                                           +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix readdir()-Funk-
+tion den nächsten Eintrag aus dem Verzeichnis ''&1'' zu lesen ist ein -
+Fehler mit Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1018                    */
+     /* Fehler beim Abrufen der Attribute des Objekts '&1' aufgetre */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1018) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1018) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Abrufen der Attribute des Objekts ''&1'' aufgetreten.'   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Attribute des Objekts ''&1'' abzurufen ist ein Fehler mit Fehler-
+code &2 aufgetreten. Der Fehlertext lautet: ''&3''.'                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1019                    */
+     /* Fehler beim Öffnen des Verzeichnisses '&1' aufgetreten.     */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1019) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1019) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Öffnen des Verzeichnisses ''&1'' aufgetreten.'           +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix opendir()-Funk-
+tion das Verzeichnis ''&1'' zu öffnen ist ein Fehler mit Fehlercode &2-
+ aufgetreten. Der Fehlertext lautet: ''&3'''                          +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1020                    */
+     /* Fehler beim Schließen des Verzeichnisses '&1' aufgetreten.  */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1020) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1020) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Schließen des Verzeichnisses ''&1'' aufgetreten.'        +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix closedir()-Fun-
+ktion das Verzeichnis ''&1'' zu schließen ist ein Fehler mit Fehlercod-
+e &2 aufgetreten. Der Fehlertext lautet: ''&3'''                      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1021                    */
+     /* Fehler beim Ermitteln der Erstellungszeit der Datei '&1' au */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1021) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1021) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der Erstellungszeit der Datei ''&1'' aufgetrete-
+n.'                                                                   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Qp0lGetAttr()-Funkt-
+ion die Erstellungszeit der IFS Datei ''&1'' zu ermitteln ist ein Fehl-
+er mit dem Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1022                    */
+     /* Fehler beim Ermitteln der Zeit der letzten Änderung der Dat */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1022) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1022) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der Zeit der letzten Änderung der Daten der Dat-
+ei ''&1'' aufgetreten.'                                               +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Qp0lGetAttr()-Funkt-
+ion die Zeit der letzten Änderung der Daten der IFS Datei ''&1'' zu er-
+mitteln ist ein Fehler mit Fehlercode &2 aufgetreten. Der Fehlertext l-
+autet: ''&3'''                                                        +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1023                    */
+     /* Fehler beim Erstellen eines temporären Pfadnamens aufgetret */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1023) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1023) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Erstellen eines temporären Pfadnamens aufgetreten.'      +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der _C_IFS_tmpnam() Fun-
+ktion einen temporären Pfadnamen zu erstellen ist ein Fehler mit Fehle-
+rcode &1 aufgetreten. Der Fehlertext lautet: ''&2'''                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1024                    */
+     /* Der angegebene Verzeichnisname '&1' ist ungültig.           */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1024) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1024) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der angegebene Verzeichnisname ''&1'' ist ungültig.'                 +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Der angegebene Verzeichnisname ''&1'' ist u-
+ngültig, weil es sich entweder um das Rootverzeichnis handelt oder wei-
+l kein Name angegeben wurde. &N &N Fehlerbehebung  :   Den Verzeichnis-
+namen korrigieren und die Anforderung wiederholen.'                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1025                    */
+     /* Fehler beim Abrufen der Objektberechtigungen für die Datei  */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1025) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1025) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Abrufen der Objektberechtigungen für die Datei oder das V-
+erzeichnis ''&1'' aufgetreten.'                                       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Berechtigungen für die IFS Datei oder das IFS Verzeichnis ''&1''-
+ zu ermitteln ist ein Fehler mit Fehlercode &2 aufgetreten. Der Fehler-
+text lautet: ''&3'''                                                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1026                    */
+     /* Verzeichnis '&1' konnte nicht erstellt werden.              */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1026) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1026) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Verzeichnis ''&1'' konnte nicht erstellt werden.'                    +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix mkdir()-Funkti-
+on das Verzeichnis ''&1'' anzulegen ist ein Fehler mit Fehlercode &2 a-
+ufgetreten. Der Fehlertext lautet: ''&3'''                            +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1027                    */
+     /* Berechtigungen für Verzeichnis '&1' nicht gesetzt.          */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1027) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1027) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Berechtigungen für Verzeichnis ''&1'' nicht gesetzt.'                +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix chmod()-Funkti-
+on die Berechtigungen für das Verzeichnis ''&1'' zu setzen ist ein Feh-
+ler mit Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''     +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1028                    */
+     /* Fehler bei der Ermittlung der eindeutigen ID der Datei '&1' */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1028) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1028) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler bei der Ermittlung der eindeutigen ID der Datei ''&1'' aufgetr-
+eten.'                                                                +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die eindeutige ID der Datei ''&1'' zu ermitteln ist ein Fehler mit F-
+ehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''              +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1029                    */
+     /* Das aktuelle Verzeichnis konnte nicht ermittelt werden.     */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1029) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1029) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Das aktuelle Verzeichnis konnte nicht ermittelt werden.'             +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix getcwd()-Funkt-
+ion das aktuelle Verzeichnis zu ermitteln ist ein Fehler mit Fehlercod-
+e ''&1'' aufgetreten. Der Fehlertext lautet: ''&2'''                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1030                    */
+     /* Das aktuelle Verzeichnis konnte nicht auf '&1' geändert wer */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1030) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1030) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Das aktuelle Verzeichnis konnte nicht auf ''&1'' geändert werden.'   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix QlgChdir()-Fun-
+ktion das aktuelle Verzeichnis auf ''&1'' zu ändern ist ein Fehler mit-
+ Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3'''            +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1031                    */
+     /* Fehler beim Löschen des Verzeichnisses '&1' aufgetreten.    */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1031) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1031) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Löschen des Verzeichnisses ''&1'' aufgetreten.'          +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix rmdir()-Funkti-
+on das Verzeichnis ''&1'' zu löschen ist ein Fehler mit Fehlercode &2 -
+aufgetreten. Der Fehlertext lautet: ''&3'''                           +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1032                    */
+     /* Das angegebene Verzeichnis '&1' existiert bereits.          */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1032) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1032) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Das angegebene Verzeichnis ''&1'' existiert bereits.'                +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angeforderte Aktion ist fehlgeschlagen,-
+ weil das angegebene Verzeichnis ''&1'' bereits existiert. &N &N Fehle-
+rbehebung  :   Ein anderes Verzeichnis angeben oder das vorhandene Ver-
+zeichnis löschen und die Anforderung wiederholen.'                    +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1034                    */
+     /* Fehler beim Abrufen der Attribute des Verzeichnisses '&1' a */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1034) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1034) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Abrufen der Attribute des Verzeichnisses ''&1'' aufgetret-
+en.'                                                                  +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Attribute des Verzeichnisses ''&1'' abzurufen ist ein Fehler mit-
+ Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3''.'           +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1035                    */
+     /* Das Verzeichnis '&1' konnte nicht erstellt werden, weil ein */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1035) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1035) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Das Verzeichnis ''&1'' konnte nicht erstellt werden, weil ein Objekt -
+gleichen Namens bereits existiert.'                                   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Das Verzeichnis ''&1'' konnte nicht erstell-
+t werden, weil ein Objekt gleichen Namens bereits existiert.  &N &N Fe-
+hlerbehebung  :   Den Namen des zu erstellenden Verzeichnisses ändern -
+oder das bereits existierende Objekt löschen und die Anforderung wiede-
+rholen. Bei dem Objekt gleichen Namens kann es sich sowohl um ein Verz-
+eichnis, als auch um eine Datei handeln.'                             +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1036                    */
+     /* Fehler beim Abrufen der Attribute der Datei '&1' aufgetrete */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1036) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1036) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Abrufen der Attribute der Datei ''&1'' aufgetreten.'     +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Attribute der Datei  ''&1'' abzurufen ist ein Fehler mit Fehlerc-
+ode &2 aufgetreten. Der Fehlertext lautet: ''&3''.'                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1037                    */
+     /* Fehler bei der Ermittlung der ID der Datei '&1' aufgetreten */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1037) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1037) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler bei der Ermittlung der ID der Datei ''&1'' aufgetreten.'      +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die ID der Datei ''&1'' zu abzurufen ist ein Fehler mit Fehlercode &-
+2 aufgetreten. Der Fehlertext lautet: ''&3'''                         +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1038                    */
+     /* Der Verzeichnisname '&1' enthält ungültige Zeichen oder ein */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1038) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1038) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der Verzeichnisname ''&1'' enthält ungültige Zeichen oder ein weitere-
+s Verzeichnis.'                                                       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angeforderte Aktion ist fehlgeschlagen,-
+ weil der angegebene Verzeichnisname ''&1'' ungültige Zeichen oder ein-
+ weiteres Verzeichnis beinhaltet. Der Verzeichnisname darf nur aus dem-
+ Namen bestehen und kein weiteres Verzeichnis enthalten. &N &N Fehlerb-
+ehebung  :   Den Verzeichnisnamen korrigieren und die Anforderung wied-
+erholen.'                                                             +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1039                    */
+     /* Fehler beim Umbenennen des Verzeichnisses '&1' in '&2' aufg */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1039) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1039) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Umbenennen des Verzeichnisses ''&1'' in ''&2'' aufgetrete-
+n.'                                                                   +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix Qp0lRenameKeep-
+()-Funktion das Verzeichnisses ''&1'' in ''&2'' umzubenennen ist ein F-
+ehler mit Fehlercode &3 aufgetreten. Der Fehlertext lautet: ''&4'''   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 180) +
+                    (*CHAR 180) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1040                    */
+     /* Fehler beim Kopieren der Datei '&1' nach '&2' aufgetreten.  */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1040) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1040) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Kopieren der Datei ''&1'' nach ''&2'' aufgetreten.'      +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit dem CL Befehl ''CPY'' d-
+ie Datei ''&1'' nach ''&2'' zu kopieren ist ein Fehler mit Fehlercode -
+&3 aufgetreten. Der Nachrichtentext lautet: ''&4'''                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 120) +
+                    (*CHAR 120) +
+                    (*CHAR 007) +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1041                    */
+     /* Die Optionen APPEND und REPLACE können nicht gemeinsam benu */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1041) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1041) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Die Optionen APPEND und REPLACE können nicht gemeinsam benutzt werden-
+.'                                                                    +
+                ) +
+                SEV(00) +
+     /*   Keine Ersatzvariablen definiert!                          */ +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1042                    */
+     /* Das angegebene Objekt '&1' konnte nicht kopiert werden, wei */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1042) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1042) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Das angegebene Objekt ''&1'' konnte nicht kopiert werden, weil es ein-
+ Verzeichnis ist.'                                                    +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Das angegebene Objekt konnte nicht kopiert -
+werden, weil es keine Datei ist. Zum Kopieren von Verzeichnissen muss -
+die ifsDirectory_copy()-Funktion verwendet werden.'                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 250) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1043                    */
+     /* Der Kopiervorgang wurde abgebrochen, weil nur &2 von &1 Byt */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1043) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1043) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der Kopiervorgang wurde abgebrochen, weil nur &2 von &1 Bytes geschri-
+eben werden konnten.'                                                 +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*DEC 010 0) +
+                    (*DEC 010 0) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1044                    */
+     /* Der Kopiervorgang wurde mit Fehlercode &1 abgebrochen: '&2' */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1044) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1044) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der Kopiervorgang wurde mit Fehlercode &1 abgebrochen: ''&2'''       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Der Kopiervorgang wurde abgebrochen, weil d-
+er Aufruf der Prozedur ''&3'' mit Fehlercode &1 endete.'              +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1045                    */
+     /* Fehler beim Ermitteln der CCSID der Datei '&1' aufgetreten. */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1045) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1045) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der CCSID der Datei ''&1'' aufgetreten.'       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die CCSID der Datei ''&1'' zu ermitteln ist ein Fehler mit Fehlercod-
+e &2 aufgetreten. Der Fehlertext lautet: ''&3'''                      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1046                    */
+     /* Die angegebene CCSID &2 entspricht nicht der CCSID &3 der Z */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1046) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1046) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Die angegebene CCSID &2 entspricht nicht der CCSID &3 der Zieldatei '-
+'&1''.'                                                               +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Der Kpiervorgang wurde abgebrochen, weil di-
+e gewünschte CCSID nicht der CCSID der Zieldatei entspricht. Sollen Da-
+ten an eine bestehende Datei angehangen werden, so muss die CCSID der -
+Zieldatei mit der angegebenen CCSID übereinstimmen.'                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*DEC 010 0) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1047                    */
+     /* Der Verzeichnisname '&1' enthält ungültige Zeichen oder ein */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1047) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1047) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Der Verzeichnisname ''&1'' enthält ungültige Zeichen oder einen Datei-
+namen.'                                                               +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die angeforderte Aktion ist fehlgeschlagen,-
+ weil der angegebene Verzeichnisname ''&1'' ungültige zeichen oder ein-
+en Dateinamen enthält. &N Fehlerbehebung  :   Den Verzeichnisnamen kor-
+rigieren und die Anfoderung wiederholen. Falls diese Nachricht von der-
+ ifsFile_move() Funktion gesendet wurde und die Datei verschoben und u-
+mbenannt werden sollte, muss die Option cIFS_MOVE_FILE_ALLOW_RENAME an-
+gegeben werden.'                                                      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1048                    */
+     /* Fehler beim Ermitteln der Erstellungszeit des Verzeichnis ' */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1048) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1048) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der Erstellungszeit des Verzeichnis ''&1'' aufg-
+etreten.'                                                             +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Qp0lGetAttr()-Funkt-
+ion die Erstellungszeit des IFS Verzeichnis ''&1'' zu ermitteln ist ei-
+n Fehler mit dem Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&-
+3'''                                                                  +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1049                    */
+     /* Fehler beim Ermitteln der Zeit der letzten Änderung des Inh */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1049) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1049) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Ermitteln der Zeit der letzten Änderung des Inhalts von V-
+erzeichnis ''&1'' aufgetreten.'                                       +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Qp0lGetAttr()-Funkt-
+ion die Zeit der letzten Änderung des Inhalts des IFS Verzeichnis ''&1-
+'' zu ermitteln ist ein Fehler mit Fehlercode &2 aufgetreten. Der Fehl-
+ertext lautet: ''&3'''                                                +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1050                    */
+     /* Fehler beim Abrufen der Attribute des symbolischen Links '& */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1050) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1050) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Fehler beim Abrufen der Attribute des symbolischen Links ''&1'' aufge-
+treten.'                                                              +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix stat()-Funktio-
+n die Attribute des symbolischen Links ''&1'' abzurufen ist ein Fehler-
+ mit Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3''.'       +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1051                    */
+     /* Symbolischer Link '&1' nicht gefunden.                      */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1051) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1051) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Symbolischer Link ''&1'' nicht gefunden.'                            +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Bei dem Versuch mit der Unix lstat()-Funkti-
+on die Attribute des symbolischen Links ''&1'' abzurufen ist ein Fehle-
+r mit Fehlercode &2 aufgetreten. Der Fehlertext lautet: ''&3''.'      +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                    (*DEC 010 0) +
+                    (*CHAR 128) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1052                    */
+     /* Objekt '&1' ist kein symbolischer Link.                     */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1052) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1052) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Objekt ''&1'' ist kein symbolischer Link.'                           +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Das angegebene Objekt ''&1'' ist kein symbo-
+lischer Link. &N &N Fehlerbehebung  :   Einen symbolischen Link angebe-
+n und die Anforderung wiederholen.'                                   +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*CHAR 256) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+     /*-------------------------------------------------------------*/
+     /*   Cmd-ADDMSGD für Message-ID :   IFS1053                    */
+     /* Datei stimmen nicht überein.                                */
+     /*-------------------------------------------------------------*/
+
+             RMVMSGD MSGID(IFS1053) MSGF(&LIB/IFS2GER)
+             MONMSG  MSGID(CPF2419)     /* MsgID nicht gefunden */
+
+             ADDMSGD +
+                MSGID(IFS1053) +
+                MSGF(&LIB/IFS2GER) +
+                MSG(+
+'Datei stimmen nicht überein.'                                        +
+                ) +
+                SECLVL(+
+'&N &N Ursache   . . . :   Die miteinander verglichenen Dateien &2 und-
+ &3 stimmen aufgrund der Ursache &1 nicht überein. &N &N Ursachencodes-
+ . :   &B 1 - Größe der Dateien &B 2 - Inhalt der Dateien'            +
+                ) +
+                SEV(00) +
+                FMT( +
+                    (*DEC 005 0) +
+                    (*CHAR 200) +
+                    (*CHAR 200) +
+                ) +
+                ALROPT(*NO) +
+                CCSID( 65535) +
+                /*  -EOF-  */
+
+             RCLRSC LVL(*)
+
+             ENDPGM
