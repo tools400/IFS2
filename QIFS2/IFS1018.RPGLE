@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1018
-      *
-      * Fehler beim Abrufen der Attribute des Objekts '&1' aufgetre
-      *
-     D IFS1018         DS
-     D  IFS10181                    256A   INZ(*BLANKS)
-     D  IFS10182                    010P 0 INZ(*ZEROS )
-     D  IFS10183                    128A   INZ(*BLANKS)
-     D IFS1018_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1018
+//
+// Fehler beim Abrufen der Attribute des Objekts '&1' aufgetre
+//
+DCL-DS IFS1018;
+  IFS10181 CHAR(256) INZ(*BLANKS);
+  IFS10182 PACKED(010) INZ(*ZEROS);
+  IFS10183 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1018_SIZE BINDEC(8) INZ(0390);
+//

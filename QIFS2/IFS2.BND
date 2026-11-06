@@ -22,7 +22,7 @@
 /*     >>PARM<< USRPRF(*USER);                          */                            /* RADD */
 /*     >>PARM<< ACTGRP(*CALLER);                        */                            /* RADD */
 /*     >>PARM<< DETAIL(*BASIC);                         */                            /* RADD */
-/*     >>PARM<< TGTRLS(V6R1M0);                         */                            /* RADD */
+/*     >>PARM<< TGTRLS(V7R3M0);                         */                            /* RADD */
 /*     >>PARM<< TEXT('Tools/400: Stream File and +      */                            /* RADD */
 /*                    Directory Procedures');           */                            /* RADD */
 /*   >>END-LINK<<                                       */                            /* RADD */

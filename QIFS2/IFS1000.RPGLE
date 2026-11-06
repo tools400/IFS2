@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1000
-      *
-      * Fehler beim Öffnen der Datei '&1' aufgetreten.
-      *
-     D IFS1000         DS
-     D  IFS10001                    256A   INZ(*BLANKS)
-     D  IFS10002                    010P 0 INZ(*ZEROS )
-     D  IFS10003                    128A   INZ(*BLANKS)
-     D IFS1000_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1000
+//
+// Fehler beim Öffnen der Datei '&1' aufgetreten.
+//
+DCL-DS IFS1000;
+  IFS10001 CHAR(256) INZ(*BLANKS);
+  IFS10002 PACKED(010) INZ(*ZEROS);
+  IFS10003 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1000_SIZE BINDEC(8) INZ(0390);
+//

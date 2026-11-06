@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1053
-      *
-      * Datei stimmen nicht überein.
-      *
-     D IFS1053         DS
-     D  IFS10531                    005P 0 INZ(*ZEROS )
-     D  IFS10532                    200A   INZ(*BLANKS)
-     D  IFS10533                    200A   INZ(*BLANKS)
-     D IFS1053_SIZE    S              8B 0 INZ(0403)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1053
+//
+// Datei stimmen nicht überein.
+//
+DCL-DS IFS1053;
+  IFS10531 PACKED(005) INZ(*ZEROS);
+  IFS10532 CHAR(200) INZ(*BLANKS);
+  IFS10533 CHAR(200) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1053_SIZE BINDEC(8) INZ(0403);
+//

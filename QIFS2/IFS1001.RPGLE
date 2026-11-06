@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1001
-      *
-      * Fehler beim Schließen Datei '&1' aufgetreten.
-      *
-     D IFS1001         DS
-     D  IFS10011                    256A   INZ(*BLANKS)
-     D  IFS10012                    010P 0 INZ(*ZEROS )
-     D  IFS10013                    128A   INZ(*BLANKS)
-     D IFS1001_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1001
+//
+// Fehler beim Schließen Datei '&1' aufgetreten.
+//
+DCL-DS IFS1001;
+  IFS10011 CHAR(256) INZ(*BLANKS);
+  IFS10012 PACKED(010) INZ(*ZEROS);
+  IFS10013 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1001_SIZE BINDEC(8) INZ(0390);
+//

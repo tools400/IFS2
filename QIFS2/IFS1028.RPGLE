@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1028
-      *
-      * Fehler bei der Ermittlung der eindeutigen ID der Datei '&1'
-      *
-     D IFS1028         DS
-     D  IFS10281                    256A   INZ(*BLANKS)
-     D  IFS10282                    010P 0 INZ(*ZEROS )
-     D  IFS10283                    128A   INZ(*BLANKS)
-     D IFS1028_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1028
+//
+// Fehler bei der Ermittlung der eindeutigen ID der Datei '&1'
+//
+DCL-DS IFS1028;
+  IFS10281 CHAR(256) INZ(*BLANKS);
+  IFS10282 PACKED(010) INZ(*ZEROS);
+  IFS10283 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1028_SIZE BINDEC(8) INZ(0390);
+//

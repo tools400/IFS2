@@ -1,12 +1,14 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1040
-      *
-      * Fehler beim Kopieren der Datei '&1' nach '&2' aufgetreten.
-      *
-     D IFS1040         DS
-     D  IFS10401                    120A   INZ(*BLANKS)
-     D  IFS10402                    120A   INZ(*BLANKS)
-     D  IFS10403                    007A   INZ(*BLANKS)
-     D  IFS10404                    256A   INZ(*BLANKS)
-     D IFS1040_SIZE    S              8B 0 INZ(0503)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1040
+//
+// Fehler beim Kopieren der Datei '&1' nach '&2' aufgetreten.
+//
+DCL-DS IFS1040;
+  IFS10401 CHAR(120) INZ(*BLANKS);
+  IFS10402 CHAR(120) INZ(*BLANKS);
+  IFS10403 CHAR(007) INZ(*BLANKS);
+  IFS10404 CHAR(256) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1040_SIZE BINDEC(8) INZ(0503);
+//

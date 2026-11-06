@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1046
-      *
-      * Die angegebene CCSID &2 entspricht nicht der CCSID &3 der Z
-      *
-     D IFS1046         DS
-     D  IFS10461                    256A   INZ(*BLANKS)
-     D  IFS10462                    010P 0 INZ(*ZEROS )
-     D  IFS10463                    010P 0 INZ(*ZEROS )
-     D IFS1046_SIZE    S              8B 0 INZ(0268)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1046
+//
+// Die angegebene CCSID &2 entspricht nicht der CCSID &3 der Z
+//
+DCL-DS IFS1046;
+  IFS10461 CHAR(256) INZ(*BLANKS);
+  IFS10462 PACKED(010) INZ(*ZEROS);
+  IFS10463 PACKED(010) INZ(*ZEROS);
+END-DS;
+DCL-S IFS1046_SIZE BINDEC(8) INZ(0268);
+//

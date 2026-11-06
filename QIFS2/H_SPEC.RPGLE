@@ -1,10 +1,10 @@
-     H DEBUG
-     H OPTION(*SRCSTMT : *NODEBUGIO)
-      /IF NOT DEFINED(NO_DECEDIT)                                                             RADDAT
-     H DECEDIT('0,')                                                                          RADDAT
-      /ENDIF                                                                                  RADDAT
-     H DATEDIT(*DMY.)                                                                         RADDAT
-     H DATFMT(*ISO ) TIMFMT(*ISO )                                                            RADDAT
-     H EXPROPTS(*RESDECPOS)
-     H EXTBININT(*YES)
-     H CCSID(*CHAR: *JOBRUN)                                                                  RADDAT
+**FREE
+CTL-OPT DEBUG OPTION(*SRCSTMT: *NODEBUGIO);
+/IF NOT DEFINED(NO_DECEDIT)
+CTL-OPT DECEDIT('0,');
+/ENDIF
+CTL-OPT DATEDIT(*DMY.);
+CTL-OPT DATFMT(*ISO) TIMFMT(*ISO);
+CTL-OPT EXPROPTS(*RESDECPOS);
+CTL-OPT EXTBININT(*YES);
+CTL-OPT CCSID(*CHAR: *JOBRUN);

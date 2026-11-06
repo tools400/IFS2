@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1025
-      *
-      * Fehler beim Abrufen der Objektberechtigungen für die Datei
-      *
-     D IFS1025         DS
-     D  IFS10251                    256A   INZ(*BLANKS)
-     D  IFS10252                    010P 0 INZ(*ZEROS )
-     D  IFS10253                    128A   INZ(*BLANKS)
-     D IFS1025_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1025
+//
+// Fehler beim Abrufen der Objektberechtigungen für die Datei
+//
+DCL-DS IFS1025;
+  IFS10251 CHAR(256) INZ(*BLANKS);
+  IFS10252 PACKED(010) INZ(*ZEROS);
+  IFS10253 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1025_SIZE BINDEC(8) INZ(0390);
+//

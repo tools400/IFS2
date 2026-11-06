@@ -1,97 +1,67 @@
- DEF  /IF NOT DEFINED(PIFS2R99)                                                               RADDAT
- DEF  /DEFINE PIFS2R99                                                                        RADDAT
-     *                                                                                       RADDAT
-     * --------------------------------                                                      RADDAT
-     *  Imported prototypes                                                                  RADDAT
-     * --------------------------------                                                      RADDAT
-CPY  /COPY QIFS2,PIFS2                           Stream File and Directory                  RADDAT
-CPY  /COPY QIFS2,CLIB                            C Runtime Library                          RADDAT
-     *                                                                                       RADDAT
-     * --------------------------------                                                      RADDAT
-     *  Exported procedures                                                                  RADDAT
-     * --------------------------------                                                      RADDAT
-     *                                                                                       RADDAT
-     *  Returns cTrue, if a given file information structure belongs to a                    RADDAT
-     *  symbolic link.                                                                       RADDAT
-     D STAT_isSymbolicLink...                                                                 RADDAT
-     D                 PR              N                                                      RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _STAT_isSymbolicLink+                              RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_st_stat                          value  likeds(st_stat_t )                          RADDAT
-     *                                                                                       RADDAT
-     *  Returns cTrue, if a given file information structure belongs to a                    RADDAT
-     *  directory.                                                                           RADDAT
-     D STAT_isDirectory...                                                                    RADDAT
-     D                 PR              N                                                      RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _STAT_isDirectory+                                 RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_st_stat                          value  likeds(st_stat_t )                          RADDAT
-     *                                                                                       RADDAT
-     *  Returns cTrue, if a given file information structure belongs to a                    RADDAT
-     *  file.                                                                                RADDAT
-     D STAT_isFile...                                                                         RADDAT
-     D                 PR              N                                                      RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _STAT_isFile+                                      RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_st_stat                          value  likeds(st_stat_t )                          RADDAT
-     *                                                                                       RADDAT
-     *  Produces a new 'Qlg_Path_Name_t' structure.                                          RADDAT
-     D QLG_PATH_new...                                                                        RADDAT
-     D                 PR                         likeds(Qlg_Path_Name_t)                     RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _QLG_PATH_new+                                     RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_path                             const  like(ifs_path_t  )                          RADDAT
-     D                                            options(*varsize)                           RADDAT
-     *                                                                                       RADDAT
-     *  Returns cTrue if a given file name matches a given pattern.                          RADDAT
-     D File_matchesPattern...                                                                 RADDAT
-     D                 PR              N                                                      RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _File_matchesPattern+                              RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_file                             const  like(ifs_path_t  )                          RADDAT
-     D                                            options(*varsize)                           RADDAT
-     D  i_pattern                          const  like(ifs_path_t  )                          RADDAT
-     D                                            options(*varsize)                           RADDAT
-     *                                                                                       RADDAT
-     *  Retrieves a file attribute of type: time                                             RADDAT
-     D FileAttr_getTime...                                                                    RADDAT
-     D                 PR            10I 0                                                    RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _FileAttr_getTime+                                 RADDAT
-     D                                     ')                                                 RADDAT
-     D i_path                              const  like(ifs_path_t    )                        RADDAT
-     D                                            options(*varsize)                           RADDAT
-     D i_attr                        10I 0 const                                              RADDAT
-     D o_time                          Z                                                      RADDAT
-     *                                                                                       RADDAT
-     *  Converts a timestamp from Epoch to RPG format.                                       RADDAT
-     D EpochTime_toTimestamp...                                                               RADDAT
-     D                 PR              Z                                                      RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _EpochTime_toTimestamp+                            RADDAT
-     D                                     ')                                                 RADDAT
-     D i_epochTmStmp                 10I 0 value                                              RADDAT
-     *                                                                                       RADDAT
-     *  Initializes code conversion.                                                         RADDAT
-     D Iconv_initialize...                                                                    RADDAT
-     D                 PR                         likeds(iconv_t  )                           RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _Iconv_initialize+                                 RADDAT
-     D                                     ')                                                 RADDAT
-     D  i_fromCcsid                  10U 0 value                                              RADDAT
-     D  i_toCcsid                    10U 0 value                                              RADDAT
-     *                                                                                       RADDAT
-     *  Terminatess code conversion.                                                         RADDAT
-     D Iconv_terminate...                                                                     RADDAT
-     D                 PR                                                                     RADDAT
-     D                                     extproc('IFS2R99+                                  RADDAT
-     D                                     _Iconv_terminate+                                  RADDAT
-     D                                     ')                                                 RADDAT
-     D  io_hIconv                                 likeds(iconv_t  )                           RADDAT
-     *                                                                                       RADDAT
- DEF  /ENDIF                                                                                  RADDAT
+**FREE
+/IF NOT DEFINED(PIFS2R99)
+/DEFINE PIFS2R99
+//
+// --------------------------------
+//  Imported prototypes
+// --------------------------------
+/COPY QIFS2,PIFS2  Stream File and Directory
+/COPY QIFS2,CLIB  C Runtime Library
+//
+// --------------------------------
+//  Exported procedures
+// --------------------------------
+//
+//  Returns cTrue, if a given file information structure belongs to a
+//  symbolic link.
+DCL-PR STAT_isSymbolicLink IND EXTPROC('IFS2R99_STAT_isSymbolicLink');
+  i_st_stat VALUE LIKEDS(st_stat_t);
+END-PR;
+//
+//  Returns cTrue, if a given file information structure belongs to a
+//  directory.
+DCL-PR STAT_isDirectory IND EXTPROC('IFS2R99_STAT_isDirectory');
+  i_st_stat VALUE LIKEDS(st_stat_t);
+END-PR;
+//
+//  Returns cTrue, if a given file information structure belongs to a
+//  file.
+DCL-PR STAT_isFile IND EXTPROC('IFS2R99_STAT_isFile');
+  i_st_stat VALUE LIKEDS(st_stat_t);
+END-PR;
+//
+//  Produces a new 'Qlg_Path_Name_t' structure.
+DCL-PR QLG_PATH_new LIKEDS(Qlg_Path_Name_t) EXTPROC('IFS2R99_QLG_PATH_new');
+  i_path CONST LIKE(ifs_path_t) OPTIONS(*VARSIZE);
+END-PR;
+//
+//  Returns cTrue if a given file name matches a given pattern.
+DCL-PR File_matchesPattern IND EXTPROC('IFS2R99_File_matchesPattern');
+  i_file    CONST LIKE(ifs_path_t) OPTIONS(*VARSIZE);
+  i_pattern CONST LIKE(ifs_path_t) OPTIONS(*VARSIZE);
+END-PR;
+//
+//  Retrieves a file attribute of type: time
+DCL-PR FileAttr_getTime INT(10) EXTPROC('IFS2R99_FileAttr_getTime');
+  i_path CONST LIKE(ifs_path_t) OPTIONS(*VARSIZE);
+  i_attr INT(10) CONST;
+  o_time TIMESTAMP;
+END-PR;
+//
+//  Converts a timestamp from Epoch to RPG format.
+DCL-PR EpochTime_toTimestamp TIMESTAMP EXTPROC('IFS2R99_EpochTime_toTimestamp');
+  i_epochTmStmp INT(10) VALUE;
+END-PR;
+//
+//  Initializes code conversion.
+DCL-PR Iconv_initialize LIKEDS(iconv_t) EXTPROC('IFS2R99_Iconv_initialize');
+  i_fromCcsid UNS(10) VALUE;
+  i_toCcsid   UNS(10) VALUE;
+END-PR;
+//
+//  Terminatess code conversion.
+DCL-PR Iconv_terminate EXTPROC('IFS2R99_Iconv_terminate');
+  io_hIconv LIKEDS(iconv_t);
+END-PR;
+//
+/ENDIF

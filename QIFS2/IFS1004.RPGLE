@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1004
-      *
-      * Fehler beim Lesen aus Datei '&1' aufgetreten.
-      *
-     D IFS1004         DS
-     D  IFS10041                    256A   INZ(*BLANKS)
-     D  IFS10042                    010P 0 INZ(*ZEROS )
-     D  IFS10043                    128A   INZ(*BLANKS)
-     D IFS1004_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1004
+//
+// Fehler beim Lesen aus Datei '&1' aufgetreten.
+//
+DCL-DS IFS1004;
+  IFS10041 CHAR(256) INZ(*BLANKS);
+  IFS10042 PACKED(010) INZ(*ZEROS);
+  IFS10043 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1004_SIZE BINDEC(8) INZ(0390);
+//

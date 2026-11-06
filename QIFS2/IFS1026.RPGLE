@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1026
-      *
-      * Verzeichnis '&1' konnte nicht erstellt werden.
-      *
-     D IFS1026         DS
-     D  IFS10261                    256A   INZ(*BLANKS)
-     D  IFS10262                    010P 0 INZ(*ZEROS )
-     D  IFS10263                    128A   INZ(*BLANKS)
-     D IFS1026_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1026
+//
+// Verzeichnis '&1' konnte nicht erstellt werden.
+//
+DCL-DS IFS1026;
+  IFS10261 CHAR(256) INZ(*BLANKS);
+  IFS10262 PACKED(010) INZ(*ZEROS);
+  IFS10263 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1026_SIZE BINDEC(8) INZ(0390);
+//

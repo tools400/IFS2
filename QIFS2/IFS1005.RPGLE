@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1005
-      *
-      * Fehler beim Löschen der Datei '&1' aufgetreten.
-      *
-     D IFS1005         DS
-     D  IFS10051                    256A   INZ(*BLANKS)
-     D  IFS10052                    010P 0 INZ(*ZEROS )
-     D  IFS10053                    128A   INZ(*BLANKS)
-     D IFS1005_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1005
+//
+// Fehler beim Löschen der Datei '&1' aufgetreten.
+//
+DCL-DS IFS1005;
+  IFS10051 CHAR(256) INZ(*BLANKS);
+  IFS10052 PACKED(010) INZ(*ZEROS);
+  IFS10053 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1005_SIZE BINDEC(8) INZ(0390);
+//

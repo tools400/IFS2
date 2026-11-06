@@ -1,10 +1,12 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1043
-      *
-      * Der Kopiervorgang wurde abgebrochen, weil nur &2 von &1 Byt
-      *
-     D IFS1043         DS
-     D  IFS10431                    010P 0 INZ(*ZEROS )
-     D  IFS10432                    010P 0 INZ(*ZEROS )
-     D IFS1043_SIZE    S              8B 0 INZ(0012)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1043
+//
+// Der Kopiervorgang wurde abgebrochen, weil nur &2 von &1 Byt
+//
+DCL-DS IFS1043;
+  IFS10431 PACKED(010) INZ(*ZEROS);
+  IFS10432 PACKED(010) INZ(*ZEROS);
+END-DS;
+DCL-S IFS1043_SIZE BINDEC(8) INZ(0012);
+//

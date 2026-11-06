@@ -1,281 +1,271 @@
-     *===============================================================*                       RADDAT
-     *  Test: ifsPath_move(... cIFS_MOVE_FILE_REPLACE)               *                       RADDAT
-     *---------------------------------------------------------------*                       RADDAT
-     *    CALL PGM(IFS2TEST09)                                       *                       RADDAT
-     *===============================================================*                       RADDAT
-     *   >>PRE-COMPILER<<                                            *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                *                       RADDAT
-     *                              SRCFILE(&SL/&SF) +               *                       RADDAT
-     *                              SRCMBR(&SM);                     *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>COMPILE<<                                               *                       RADDAT
-     *       >>PARM<< TRUNCNBR(*NO);                                 *                       RADDAT
-     *       >>PARM<< DBGVIEW(*LIST);                                *                       RADDAT
-     *       >>PARM<< TGTRLS(*CURRENT);                              *                       RADDAT
-     *     >>END-COMPILE<<                                           *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>EXECUTE<<                                               *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>CMD<<     CRTPGM       PGM(&LI/&OB) +                   *                       RADDAT
-     *                              MODULE(&LI/&OB) +                *                       RADDAT
-     *                              ACTGRP(*NEW) +                   *                       RADDAT
-     *                              BNDSRVPGM(&LI/IFS2     +         *                       RADDAT
-     *                                        &LI/BASICS1) +         *                       RADDAT
-     *                              BNDDIR(QC2LE         ) +         *                       RADDAT
-     *                              TGTRLS(*CURRENT) +               *
-     *                              DETAIL(*BASIC);                  *                       RADDAT
-     *                                                               *                       RADDAT
-     *   >>END-PRE-COMPILER<<                                        *                       RADDAT
-     *===============================================================*                       RADDAT
-     H DEBUG                                                                                  RADDAT
-     H OPTION(*SRCSTMT : *NODEBUGIO)                                                          RADDAT
-     H DECEDIT('0,') DATEDIT(*DMY.)                                                           RADDAT
-     H DATFMT(*ISO )  TIMFMT(*ISO )                                                           RADDAT
-     H EXPROPTS(*RESDECPOS)                                                                   RADDAT
-     H EXTBININT(*YES)                                                                        RADDAT
-     *===============================================================*                       RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Type Definitions                                                                     RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  External Prototypes                                                                  RADDAT
-     * ------------------------------------                                                  RADDAT
-CPY  /COPY QIFS2,PIFS2                                                                      RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Global Fields                                                                        RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Global Constants                                                                     RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Prototypes                                                                           RADDAT
-     * ------------------------------------                                                  RADDAT
-CPY  /COPY QBASICS1,PBASICS1                    
-     *                                                                                       RADDAT
-     D PGM_ENTRY_POINT...                                                                     RADDAT
-     D                 PR                         extpgm('IFS2TEST06')                        RADDAT
-     *                                                                                       RADDAT
-     D main...                                                                                RADDAT
-     D                 PR                                                                     RADDAT
-     *                                                                                       RADDAT
-     *  Creates a temporary file.                                                            RADDAT
-     D createTempFile...                                                                      RADDAT
-     D                 PR                         like(ifs_path_t )                           RADDAT
-     *                                                                                       RADDAT
-     *  Sends a message to QCMD                                                              RADDAT
-     D sndMsg...                                                                              RADDAT
-     D                 PR                                                                     RADDAT
-     D  i_text                      128A   value  varying                                     RADDAT
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  Program Entry Point                                                                  RADDAT
-     *===============================================================*                       RADDAT
-     *                                                                                       RADDAT
-     D PGM_ENTRY_POINT...                                                                     RADDAT
-     D                 PI                                                                     RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         main();                                                                            //RADDAT
-                                                                                            //RADDAT
-         *inlr = *on;                                                                       //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  *** private ***                                                                      RADDAT
-     *  Sends a message to the caller.                                                       RADDAT
-     *===============================================================*                       RADDAT
-    P sndMsg...                                                                              RADDAT
-    P                 B                                                                      RADDAT
-     *                                                                                       RADDAT
-     D sndMsg...                                                                              RADDAT
-     D                 PI                                                                     RADDAT
-     D  i_text                      128A   value  varying                                     RADDAT
-     *                                                                                       RADDAT
-     *  Return value                                                                         RADDAT
-     D pBuffer         S               *   inz                                                RADDAT
-     *                                                                                       RADDAT
-     *  Local fields                                                                         RADDAT
-     D msgKey          S              4A                        inz                           RADDAT
-     *                                                                                       RADDAT
-     D qMsgF           DS                  qualified            inz                           RADDAT
-     D  name                         10A                                                      RADDAT
-     D  lib                          10A                                                      RADDAT
-     *                                                                                       RADDAT
-     D errCode         DS                  qualified            inz                           RADDAT
-     D  bytPrv                       10I 0                                                    RADDAT
-     D  bytAvl                       10I 0                                                    RADDAT
-     D  excID                         7A                                                      RADDAT
-     D  reserved                      1A                                                      RADDAT
-     D  excDta                      256A                                                      RADDAT
-     *                                                                                       RADDAT
-     *  Send Program Message (QMHSNDPM) API                                                  RADDAT
-     D QMHSNDPM        PR                         extpgm('QMHSNDPM')                          RADDAT
-     D   i_msgID                      7A   const                                              RADDAT
-     D   i_qMsgF                     20A   const                                              RADDAT
-     D   i_msgData                32767A   const  options(*varsize )                          RADDAT
-     D   i_length                    10I 0 const                                              RADDAT
-     D   i_msgType                   10A   const                                              RADDAT
-     D   i_callStkE               32767A   const  options(*varsize )                          RADDAT
-     D   i_callStkC                  10I 0 const                                              RADDAT
-     D   o_msgKey                     4A                                                      RADDAT
-     D   io_ErrCode               32767A          options(*varsize )                          RADDAT
-     D   i_lenStkE                   10I 0 const  options(*nopass  )                          RADDAT
-     D   i_callStkEQ                 20A   const  options(*nopass  )                          RADDAT
-     D   i_wait                      10I 0 const  options(*nopass  )                          RADDAT
-     D   i_callStkEDT                10A   const  options(*nopass  )                          RADDAT
-     D   i_ccsid                     10I 0 const  options(*nopass  )                          RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         clear qMsgF;                                                                       //RADDAT
-         qMsgF.name = 'QCPFMSG';                                                            //RADDAT
-         qMsgF.lib  = '*LIBL';                                                              //RADDAT
-                                                                                            //RADDAT
-         clear errCode;                                                                     //RADDAT
-         errCode.bytPrv = %size(errCode);                                                   //RADDAT
-                                                                                            //RADDAT
-         QMHSNDPM('CPF9897': qMsgF: i_text: %len(i_text): '*INFO'
-                  : '*CTLBDY': 1
-                  : msgKey: errCode);                                                       //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-    P sndMsg...                                                                              RADDAT
-    P                 E                                                                      RADDAT
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  Creates a temporary file.                                                            RADDAT
-     *===============================================================*                       RADDAT
-    P createTempFile...                                                                      RADDAT
-    P                 B                                                                      RADDAT
-     *                                                                                       RADDAT
-     D createTempFile...                                                                      RADDAT
-     D                 PI                         like(ifs_path_t )                           RADDAT
-     *                                                                                       RADDAT
-     *  Return value                                                                         RADDAT
-     D fileName        S                   like(ifs_path_t ) inz                              RADDAT
-     *                                                                                       RADDAT
-     *  Helper fields                                                                        RADDAT
-     D hFile           S                   like(ifs_hFile_t) inz                              RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         //Create a temporary file                                                         //RADDAT
-         fileName = ifsFile_getTempPath();                                                  //RADDAT
-         fileName = ifsPath_getDirectory(fileName) +
-                    'ifs2_' + ifsPath_getName(fileName);                                    //RADDAT
-         hFile = ifsFile_open(fileName
-                              : O_RDONLY + O_SHARE_RDONLY +
-                                O_CREAT + O_EXCL + O_TEXTDATA
-                              : *: *: *);                                                   //RADDAT
-         ifsFile_close(hFile);                                                              //RADDAT
-                                                                                            //RADDAT
-         return fileName;                                                                   //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-    P createTempFile...                                                                      RADDAT
-    P                 E                                                                      RADDAT
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  Main procedure                                                                       RADDAT
-     *===============================================================*                       RADDAT
-    P main...                                                                                RADDAT
-    P                 B                                                                      RADDAT
-     *                                                                                       RADDAT
-     D main...                                                                                RADDAT
-     D                 PI                                                                     RADDAT
-     *                                                                                       RADDAT
-     *  Helper fields                                                                        RADDAT
-     D tmpRC           S             10I 0 inz                                                RADDAT
-     D fileNameTemp    S                   like(ifs_path_t ) inz                              RADDAT
-     D fileNameRoot    S                   like(ifs_path_t ) inz                              RADDAT
-     D fileNameRnmd    S                   like(ifs_path_t ) inz                              RADDAT
-     D crtTimeTemp     S               Z                     inz                              RADDAT
-     D crtTimeRoot     S               Z                     inz                              RADDAT
-     D msg             DS                  likeds(msg_t    ) inz                              RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         //Create a temporary file                                                         //RADDAT
-         fileNameTemp = createTempFile();                                                   //RADDAT
-         fileNameRoot = '/' + ifsPath_getName(filenameTemp);                                //RADDAT
-         fileNameRnmd = fileNameTemp + '.renamed';                                          //RADDAT
-                                                                                            //RADDAT
-         //Copy it to the root directory                                                   //RADDAT
-         p_wait(1);  //Ensure different timestamps                                         //RADDAT
-                                                                                            //RADDAT
-         tmpRC = ifsFile_copy(fileNameTemp: '/': cIFS_COPY_FILE_DFT: *: msg);               //RADDAT
-         p_assert(tmpRC = cIFS_OK
-                  : 'Expected cIFS_OK from ifsFile_copy()');                                //RADDAT
-         p_assert(msg.ID = cMSG_ID_OK
-                  : 'Expected cMSG_ID_OK from ifsFile_copy()');                             //RADDAT
-                                                                                            //RADDAT
-         //Get creation timestamps                                                         //RADDAT
-         crtTimeTemp = ifsFile_getCreationTime(fileNameTemp);                               //RADDAT
-         crtTimeRoot = ifsFile_getCreationTime('/' + fileNameTemp);                         //RADDAT
-                                                                                            //RADDAT
-         //Try to move it to the root directory --> ERROR                                  //RADDAT
-         tmpRC = ifsFile_move(fileNameTemp: '/': cIFS_MOVE_FILE_DFT: msg);                  //RADDAT
-         p_assert(tmpRC = cIFS_ERROR
-                  : 'Expected cIFS_ERROR from ifsFile_move()');                             //RADDAT
-         p_assert(msg.ID = 'IFS1003'
-                  : 'Expected ''IFS1003'' from ifsFile_move()');                            //RADDAT
-                                                                                            //RADDAT
-         //Now move it to the root, replacing the existing file                            //RADDAT
-         tmpRC = ifsFile_move(fileNameTemp: '/': cIFS_MOVE_FILE_REPLACE: msg);              //RADDAT
-         p_assert(tmpRC = cIFS_OK
-                  : 'Expected cIFS_OK from ifsFile_move()');                                //RADDAT
-         p_assert(msg.ID = cMSG_ID_OK
-                  : 'Expected cMSG_ID_OK from ifsFile_move()');                             //RADDAT
-                                                                                            //RADDAT
-         //Check that file has been moved.                                                 //RADDAT
-         p_assert(not ifsFile_exist(fileNameTemp)
-                  : 'Expected temp. file moved to root');                                   //RADDAT
-         p_assert(crtTimeTemp = ifsFile_getCreationTime(fileNameRoot)
-                  : 'Expected the root file to have the creation timestamp +
-                     of the temp. file, because it was moved');                             //RADDAT
-                                                                                            //RADDAT
-         //Move it back to where it came from, rename it --> ERROR                         //RADDAT
-         tmpRC = ifsFile_move(fileNameRoot: fileNameRnmd: *: msg);                          //RADDAT
-         p_assert(tmpRC = cIFS_ERROR
-                  : 'Expected cIFS_ERROR from ifsFile_move()');                             //RADDAT
-         p_assert(msg.ID = 'IFS1047'
-                  : 'Expected ''IFS1047'' from ifsFile_move()');                            //RADDAT
-                                                                                            //RADDAT
-         //Move it back to where it came from, rename it                                   //RADDAT
-         tmpRC = ifsFile_move(fileNameRoot: fileNameRnmd
-                              : cIFS_MOVE_FILE_ALLOW_RENAME: msg);                          //RADDAT
-         p_assert(tmpRC = cIFS_OK
-                  : 'Expected cIFS_OK from ifsFile_move()');                                //RADDAT
-         p_assert(msg.ID = cMSG_ID_OK
-                  : 'Expected cMSG_ID_OK from ifsFile_move()');                             //RADDAT
-                                                                                            //RADDAT
-         //Remove temorary file                                                            //RADDAT
-         ifsFile_delete(fileNameRnmd);                                                      //RADDAT
-                                                                                            //RADDAT
-         //Remove file from root directory                                                 //RADDAT
-         //ifsFile_delete(fileNameRoot);                                                   //RADDAT
-                                                                                            //RADDAT
-                                                                                            //RADDAT
-                                                                                            //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-    P main...                                                                                RADDAT
-    P                 E                                                                      RADDAT
-     *                                                                                       RADDAT
+**FREE
+//===============================================================*
+//  Test: ifsPath_move(... cIFS_MOVE_FILE_REPLACE)               *
+//---------------------------------------------------------------*
+//    CALL PGM(IFS2TEST09)                                       *
+//===============================================================*
+//   >>PRE-COMPILER<<                                            *
+//                                                               *
+//     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                *
+//                              SRCFILE(&SL/&SF) +               *
+//                              SRCMBR(&SM);                     *
+//                                                               *
+//     >>COMPILE<<                                               *
+//       >>PARM<< TRUNCNBR(*NO);                                 *
+//       >>PARM<< DBGVIEW(*LIST);                                *
+//       >>PARM<< TGTRLS(*CURRENT);                              *
+//       >>PARM<< OPTION(*EVENTF);                               *
+//     >>END-COMPILE<<                                           *
+//                                                               *
+//     >>EXECUTE<<                                               *
+//                                                               *
+//     >>CMD<<     CRTPGM       PGM(&LI/&OB) +                   *
+//                              MODULE(&LI/&OB) +                *
+//                              ACTGRP(*NEW) +                   *
+//                              BNDSRVPGM(&LI/IFS2     +         *
+//                                        &LI/BASICS1) +         *
+//                              BNDDIR(QC2LE         ) +         *
+//                              TGTRLS(*CURRENT) +               *
+//                              DETAIL(*BASIC);                  *
+//                                                               *
+//   >>END-PRE-COMPILER<<                                        *
+//===============================================================*
+CTL-OPT DEBUG OPTION(*SRCSTMT: *NODEBUGIO);
+CTL-OPT DECEDIT('0,') DATEDIT(*DMY.);
+CTL-OPT DATFMT(*ISO) TIMFMT(*ISO);
+CTL-OPT EXPROPTS(*RESDECPOS);
+CTL-OPT EXTBININT(*YES);
+//===============================================================*
+//
+// ------------------------------------
+//  Type Definitions
+// ------------------------------------
+//
+// ------------------------------------
+//  External Prototypes
+// ------------------------------------
+/COPY QIFS2,PIFS2 
+//
+// ------------------------------------
+//  Global Fields
+// ------------------------------------
+//
+// ------------------------------------
+//  Global Constants
+// ------------------------------------
+//
+// ------------------------------------
+//  Prototypes
+// ------------------------------------
+/COPY QBASICS1,PBASICS1 
+//
+DCL-PR PGM_ENTRY_POINT EXTPGM('IFS2TEST06');
+END-PR;
+//
+DCL-PR main;
+END-PR;
+//
+//  Creates a temporary file.
+DCL-PR createTempFile LIKE(ifs_path_t);
+END-PR;
+//
+//  Sends a message to QCMD
+DCL-PR sndMsg;
+  i_text VARCHAR(128) VALUE;
+END-PR;
+//
+//===============================================================*
+//  Program Entry Point
+//===============================================================*
+//
+DCL-PI PGM_ENTRY_POINT;
+END-PI;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+main();
+
+*inlr = *on;
+
+return;
+
+//
+//===============================================================*
+//  *** private ***
+//  Sends a message to the caller.
+//===============================================================*
+DCL-PROC sndMsg;
+  //
+  DCL-PI *N;
+    i_text VARCHAR(128) VALUE;
+  END-PI;
+  //
+  //  Return value
+  DCL-S pBuffer POINTER INZ;
+  //
+  //  Local fields
+  DCL-S msgKey CHAR(4) INZ;
+  //
+  DCL-DS qMsgF QUALIFIED INZ;
+    name CHAR(10);
+    lib  CHAR(10);
+  END-DS;
+  //
+  DCL-DS errCode QUALIFIED INZ;
+    bytPrv   INT(10);
+    bytAvl   INT(10);
+    excID    CHAR(7);
+    reserved CHAR(1);
+    excDta   CHAR(256);
+  END-DS;
+  //
+  //  Send Program Message (QMHSNDPM) API
+  DCL-PR QMHSNDPM EXTPGM('QMHSNDPM');
+    i_msgID      CHAR(7) CONST;
+    i_qMsgF      CHAR(20) CONST;
+    i_msgData    CHAR(32767) CONST OPTIONS(*VARSIZE);
+    i_length     INT(10) CONST;
+    i_msgType    CHAR(10) CONST;
+    i_callStkE   CHAR(32767) CONST OPTIONS(*VARSIZE);
+    i_callStkC   INT(10) CONST;
+    o_msgKey     CHAR(4);
+    io_ErrCode   CHAR(32767) OPTIONS(*VARSIZE);
+    i_lenStkE    INT(10) CONST OPTIONS(*NOPASS);
+    i_callStkEQ  CHAR(20) CONST OPTIONS(*NOPASS);
+    i_wait       INT(10) CONST OPTIONS(*NOPASS);
+    i_callStkEDT CHAR(10) CONST OPTIONS(*NOPASS);
+    i_ccsid      INT(10) CONST OPTIONS(*NOPASS);
+  END-PR;
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  clear qMsgF;
+  qMsgF.name = 'QCPFMSG';
+  qMsgF.lib  = '*LIBL';
+
+  clear errCode;
+  errCode.bytPrv = %size(errCode);
+
+  QMHSNDPM('CPF9897': qMsgF: i_text: %len(i_text): '*INFO'
+           : '*CTLBDY': 1
+           : msgKey: errCode);
+
+  return;
+
+//
+END-PROC;
+//
+//===============================================================*
+//  Creates a temporary file.
+//===============================================================*
+DCL-PROC createTempFile;
+  //
+  DCL-PI *N LIKE(ifs_path_t);
+  END-PI;
+  //
+  //  Return value
+  DCL-S fileName LIKE(ifs_path_t) INZ;
+  //
+  //  Helper fields
+  DCL-S hFile LIKE(ifs_hFile_t) INZ;
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  //Create a temporary file
+  fileName = ifsFile_getTempPath();
+  fileName = ifsPath_getDirectory(fileName) +
+             'ifs2_' + ifsPath_getName(fileName);
+  hFile = ifsFile_open(fileName
+                       : O_RDONLY + O_SHARE_RDONLY +
+                         O_CREAT + O_EXCL + O_TEXTDATA
+                       : *omit: *omit: *omit);
+  ifsFile_close(hFile);
+
+  return fileName;
+
+//
+END-PROC;
+//
+//===============================================================*
+//  Main procedure
+//===============================================================*
+DCL-PROC main;
+  //
+  DCL-PI *N;
+  END-PI;
+  //
+  //  Helper fields
+  DCL-S tmpRC INT(10) INZ;
+  DCL-S fileNameTemp LIKE(ifs_path_t) INZ;
+  DCL-S fileNameRoot LIKE(ifs_path_t) INZ;
+  DCL-S fileNameRnmd LIKE(ifs_path_t) INZ;
+  DCL-S crtTimeTemp TIMESTAMP INZ;
+  DCL-S crtTimeRoot TIMESTAMP INZ;
+  DCL-DS msg LIKEDS(msg_t) INZ;
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  //Create a temporary file
+  fileNameTemp = createTempFile();
+  fileNameRoot = '/' + ifsPath_getName(filenameTemp);
+  fileNameRnmd = fileNameTemp + '.renamed';
+
+  //Copy it to the root directory
+  p_wait(1);  //Ensure different timestamps
+
+  tmpRC = ifsFile_copy(fileNameTemp: '/': cIFS_COPY_FILE_DFT: *omit: msg);
+  p_assert(tmpRC = cIFS_OK
+           : 'Expected cIFS_OK from ifsFile_copy()');
+  p_assert(msg.ID = cMSG_ID_OK
+           : 'Expected cMSG_ID_OK from ifsFile_copy()');
+
+  //Get creation timestamps
+  crtTimeTemp = ifsFile_getCreationTime(fileNameTemp);
+  crtTimeRoot = ifsFile_getCreationTime('/' + fileNameTemp);
+
+  //Try to move it to the root directory --> ERROR
+  tmpRC = ifsFile_move(fileNameTemp: '/': cIFS_MOVE_FILE_DFT: msg);
+  p_assert(tmpRC = cIFS_ERROR
+           : 'Expected cIFS_ERROR from ifsFile_move()');
+  p_assert(msg.ID = 'IFS1003'
+           : 'Expected ''IFS1003'' from ifsFile_move()');
+
+  //Now move it to the root, replacing the existing file
+  tmpRC = ifsFile_move(fileNameTemp: '/': cIFS_MOVE_FILE_REPLACE: msg);
+  p_assert(tmpRC = cIFS_OK
+           : 'Expected cIFS_OK from ifsFile_move()');
+  p_assert(msg.ID = cMSG_ID_OK
+           : 'Expected cMSG_ID_OK from ifsFile_move()');
+
+  //Check that file has been moved.
+  p_assert(not ifsFile_exist(fileNameTemp)
+           : 'Expected temp. file moved to root');
+  p_assert(crtTimeTemp = ifsFile_getCreationTime(fileNameRoot)
+           : 'Expected the root file to have the creation timestamp +
+              of the temp. file, because it was moved');
+
+  //Move it back to where it came from, rename it --> ERROR
+  tmpRC = ifsFile_move(fileNameRoot: fileNameRnmd: *omit: msg);
+  p_assert(tmpRC = cIFS_ERROR
+           : 'Expected cIFS_ERROR from ifsFile_move()');
+  p_assert(msg.ID = 'IFS1047'
+           : 'Expected ''IFS1047'' from ifsFile_move()');
+
+  //Move it back to where it came from, rename it
+  tmpRC = ifsFile_move(fileNameRoot: fileNameRnmd
+                       : cIFS_MOVE_FILE_ALLOW_RENAME: msg);
+  p_assert(tmpRC = cIFS_OK
+           : 'Expected cIFS_OK from ifsFile_move()');
+  p_assert(msg.ID = cMSG_ID_OK
+           : 'Expected cMSG_ID_OK from ifsFile_move()');
+
+  //Remove temorary file
+  ifsFile_delete(fileNameRnmd);
+
+  //Remove file from root directory
+  //ifsFile_delete(fileNameRoot);
+
+
+
+
+  return;
+
+//
+END-PROC MAIN;
+//

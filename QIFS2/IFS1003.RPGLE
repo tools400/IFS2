@@ -1,12 +1,14 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1003
-      *
-      * Fehler beim Verschieben der Datei '&1' nach '&3' aufgetrete
-      *
-     D IFS1003         DS
-     D  IFS10031                    180A   INZ(*BLANKS)
-     D  IFS10032                    180A   INZ(*BLANKS)
-     D  IFS10033                    010P 0 INZ(*ZEROS )
-     D  IFS10034                    128A   INZ(*BLANKS)
-     D IFS1003_SIZE    S              8B 0 INZ(0494)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1003
+//
+// Fehler beim Verschieben der Datei '&1' nach '&3' aufgetrete
+//
+DCL-DS IFS1003;
+  IFS10031 CHAR(180) INZ(*BLANKS);
+  IFS10032 CHAR(180) INZ(*BLANKS);
+  IFS10033 PACKED(010) INZ(*ZEROS);
+  IFS10034 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1003_SIZE BINDEC(8) INZ(0494);
+//

@@ -1,12 +1,14 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1009
-      *
-      * Fehler beim Umbenennen der Datei '&1' in '&2' aufgetreten.
-      *
-     D IFS1009         DS
-     D  IFS10091                    180A   INZ(*BLANKS)
-     D  IFS10092                    180A   INZ(*BLANKS)
-     D  IFS10093                    010P 0 INZ(*ZEROS )
-     D  IFS10094                    128A   INZ(*BLANKS)
-     D IFS1009_SIZE    S              8B 0 INZ(0494)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1009
+//
+// Fehler beim Umbenennen der Datei '&1' in '&2' aufgetreten.
+//
+DCL-DS IFS1009;
+  IFS10091 CHAR(180) INZ(*BLANKS);
+  IFS10092 CHAR(180) INZ(*BLANKS);
+  IFS10093 PACKED(010) INZ(*ZEROS);
+  IFS10094 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1009_SIZE BINDEC(8) INZ(0494);
+//

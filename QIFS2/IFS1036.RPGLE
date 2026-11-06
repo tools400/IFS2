@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1036
-      *
-      * Fehler beim Abrufen der Attribute der Datei '&1' aufgetrete
-      *
-     D IFS1036         DS
-     D  IFS10361                    256A   INZ(*BLANKS)
-     D  IFS10362                    010P 0 INZ(*ZEROS )
-     D  IFS10363                    128A   INZ(*BLANKS)
-     D IFS1036_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1036
+//
+// Fehler beim Abrufen der Attribute der Datei '&1' aufgetrete
+//
+DCL-DS IFS1036;
+  IFS10361 CHAR(256) INZ(*BLANKS);
+  IFS10362 PACKED(010) INZ(*ZEROS);
+  IFS10363 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1036_SIZE BINDEC(8) INZ(0390);
+//

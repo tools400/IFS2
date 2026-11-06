@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1021
-      *
-      * Fehler beim Ermitteln der Erstellungszeit der Datei '&1' au
-      *
-     D IFS1021         DS
-     D  IFS10211                    256A   INZ(*BLANKS)
-     D  IFS10212                    010P 0 INZ(*ZEROS )
-     D  IFS10213                    128A   INZ(*BLANKS)
-     D IFS1021_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1021
+//
+// Fehler beim Ermitteln der Erstellungszeit der Datei '&1' au
+//
+DCL-DS IFS1021;
+  IFS10211 CHAR(256) INZ(*BLANKS);
+  IFS10212 PACKED(010) INZ(*ZEROS);
+  IFS10213 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1021_SIZE BINDEC(8) INZ(0390);
+//

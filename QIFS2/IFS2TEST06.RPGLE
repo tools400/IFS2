@@ -1,198 +1,188 @@
-     *===============================================================*                       RADDAT
-     *  Test: Copy file                                              *                       RADDAT
-     *---------------------------------------------------------------*                       RADDAT
-     *    CALL PGM(IFS2TEST06)                                       *                       RADDAT
-     *    CALL PGM(IFS2TEST06) PARM('\home\raddatz\fileName.ext')    *                       RADDAT
-     *===============================================================*                       RADDAT
-     *   >>PRE-COMPILER<<                                            *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                *                       RADDAT
-     *                              SRCFILE(&SL/&SF) +               *                       RADDAT
-     *                              SRCMBR(&SM);                     *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>COMPILE<<                                               *                       RADDAT
-     *       >>PARM<< TRUNCNBR(*NO);                                 *                       RADDAT
-     *       >>PARM<< DBGVIEW(*LIST);                                *                       RADDAT
-     *       >>PARM<< TGTRLS(*CURRENT);                              *                       RADDAT
-     *     >>END-COMPILE<<                                           *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>EXECUTE<<                                               *                       RADDAT
-     *                                                               *                       RADDAT
-     *     >>CMD<<     CRTPGM       PGM(&LI/&OB) +                   *                       RADDAT
-     *                              MODULE(&LI/&OB) +                *                       RADDAT
-     *                              ACTGRP(*NEW) +                   *                       RADDAT
-     *                              BNDSRVPGM(&LI/IFS2     +         *                       RADDAT
-     *                                        &LI/BASICS1) +         *                       RADDAT
-     *                              BNDDIR(QC2LE         ) +         *                       RADDAT
-     *                              TGTRLS(*CURRENT) +               *
-     *                              DETAIL(*BASIC);                  *                       RADDAT
-     *                                                               *                       RADDAT
-     *   >>END-PRE-COMPILER<<                                        *                       RADDAT
-     *===============================================================*                       RADDAT
-     H DEBUG                                                                                  RADDAT
-     H OPTION(*SRCSTMT : *NODEBUGIO)                                                          RADDAT
-     H DECEDIT('0,') DATEDIT(*DMY.)                                                           RADDAT
-     H DATFMT(*ISO )  TIMFMT(*ISO )                                                           RADDAT
-     H EXPROPTS(*RESDECPOS)                                                                   RADDAT
-     H EXTBININT(*YES)                                                                        RADDAT
-     *===============================================================*                       RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Type Definitions                                                                     RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  External Prototypes                                                                  RADDAT
-     * ------------------------------------                                                  RADDAT
-CPY  /COPY QIFS2,PIFS2                                                                      RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Global Fields                                                                        RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Global Constants                                                                     RADDAT
-     * ------------------------------------                                                  RADDAT
-     *                                                                                       RADDAT
-     * ------------------------------------                                                  RADDAT
-     *  Prototypes                                                                           RADDAT
-     * ------------------------------------                                                  RADDAT
-CPY  /COPY QBASICS1,PBASICS1                    
-     *                                                                                       RADDAT
-     D PGM_ENTRY_POINT...                                                                     RADDAT
-     D                 PR                         extpgm('IFS2TEST06')                        RADDAT
-     D  gi_from                      32A   const  options(*nopass)                            RADDAT
-     D  gi_to                        32A   const  options(*nopass)                            RADDAT
-     *                                                                                       RADDAT
-     D main...                                                                                RADDAT
-     D                 PR                                                                     RADDAT
-     D  i_from                             value  like(ifs_path_t )                           RADDAT
-     D                                            options(*trim)                              RADDAT
-     D  i_to                               value  like(ifs_path_t )                           RADDAT
-     D                                            options(*trim)                              RADDAT
-     *                                                                                       RADDAT
-     *  Sends a message to QCMD                                                              RADDAT
-     D sndMsg...                                                                              RADDAT
-     D                 PR                                                                     RADDAT
-     D  i_text                      128A   value  varying                                     RADDAT
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  Program Entry Point                                                                  RADDAT
-     *===============================================================*                       RADDAT
-     *                                                                                       RADDAT
-     D PGM_ENTRY_POINT...                                                                     RADDAT
-     D                 PI                                                                     RADDAT
-     D  gi_from                      32A   const  options(*nopass)                            RADDAT
-     D  gi_to                        32A   const  options(*nopass)                            RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
- B01     if (%parms() >= 1);                                                                //RADDAT
-            main(gi_from: gi_to);                                                           //RADDAT
- X01     else;                                                                              //RADDAT
-            main('': '');                                                                   //RADDAT
- E01     endif;                                                                             //RADDAT
-                                                                                            //RADDAT
-         *inlr = *on;                                                                       //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  *** private ***                                                                      RADDAT
-     *  Sends a message to the caller.                                                       RADDAT
-     *===============================================================*                       RADDAT
-    P sndMsg...                                                                              RADDAT
-    P                 B                                                                      RADDAT
-     *                                                                                       RADDAT
-     D sndMsg...                                                                              RADDAT
-     D                 PI                                                                     RADDAT
-     D  i_text                      128A   value  varying                                     RADDAT
-     *                                                                                       RADDAT
-     *  Return value                                                                         RADDAT
-     D pBuffer         S               *   inz                                                RADDAT
-     *                                                                                       RADDAT
-     *  Local fields                                                                         RADDAT
-     D msgKey          S              4A                        inz                           RADDAT
-     *                                                                                       RADDAT
-     D qMsgF           DS                  qualified            inz                           RADDAT
-     D  name                         10A                                                      RADDAT
-     D  lib                          10A                                                      RADDAT
-     *                                                                                       RADDAT
-     D errCode         DS                  qualified            inz                           RADDAT
-     D  bytPrv                       10I 0                                                    RADDAT
-     D  bytAvl                       10I 0                                                    RADDAT
-     D  excID                         7A                                                      RADDAT
-     D  reserved                      1A                                                      RADDAT
-     D  excDta                      256A                                                      RADDAT
-     *                                                                                       RADDAT
-     *  Send Program Message (QMHSNDPM) API                                                  RADDAT
-     D QMHSNDPM        PR                         extpgm('QMHSNDPM')                          RADDAT
-     D   i_msgID                      7A   const                                              RADDAT
-     D   i_qMsgF                     20A   const                                              RADDAT
-     D   i_msgData                32767A   const  options(*varsize )                          RADDAT
-     D   i_length                    10I 0 const                                              RADDAT
-     D   i_msgType                   10A   const                                              RADDAT
-     D   i_callStkE               32767A   const  options(*varsize )                          RADDAT
-     D   i_callStkC                  10I 0 const                                              RADDAT
-     D   o_msgKey                     4A                                                      RADDAT
-     D   io_ErrCode               32767A          options(*varsize )                          RADDAT
-     D   i_lenStkE                   10I 0 const  options(*nopass  )                          RADDAT
-     D   i_callStkEQ                 20A   const  options(*nopass  )                          RADDAT
-     D   i_wait                      10I 0 const  options(*nopass  )                          RADDAT
-     D   i_callStkEDT                10A   const  options(*nopass  )                          RADDAT
-     D   i_ccsid                     10I 0 const  options(*nopass  )                          RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         clear qMsgF;                                                                       //RADDAT
-         qMsgF.name = 'QCPFMSG';                                                            //RADDAT
-         qMsgF.lib  = '*LIBL';                                                              //RADDAT
-                                                                                            //RADDAT
-         clear errCode;                                                                     //RADDAT
-         errCode.bytPrv = %size(errCode);                                                   //RADDAT
-                                                                                            //RADDAT
-         QMHSNDPM('CPF9897': qMsgF: i_text: %len(i_text): '*INFO'
-                  : '*CTLBDY': 1
-                  : msgKey: errCode);                                                       //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-    P sndMsg...                                                                              RADDAT
-    P                 E                                                                      RADDAT
-     *                                                                                       RADDAT
-     *===============================================================*                       RADDAT
-     *  Main procedure                                                                       RADDAT
-     *===============================================================*                       RADDAT
-    P main...                                                                                RADDAT
-    P                 B                                                                      RADDAT
-     *                                                                                       RADDAT
-     D main...                                                                                RADDAT
-     D                 PI                                                                     RADDAT
-     D  i_from                             value  like(ifs_path_t )                           RADDAT
-     D                                            options(*trim)                              RADDAT
-     D  i_to                               value  like(ifs_path_t )                           RADDAT
-     D                                            options(*trim)                              RADDAT
-     *                                                                                       RADDAT
-     *  Helper fields                                                                        RADDAT
-     D rc              S             10I 0 inz                                                RADDAT
-     D msg             DS                  likeds(msg_t    ) inz                              RADDAT
-     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -                         RADDAT
-      /FREE
-                                                                                            //RADDAT
-         //Copy file                                                                       //RADDAT
-         rc = ifsFile_copy(i_from: i_to: cIFS_COPY_FILE_APPEND: *: msg);                    //RADDAT
- B01     if (rc = cIFS_ERROR);                                                              //RADDAT
-            sndMsg(f_rtvMsgText(msg));                                                      //RADDAT
- E01     endif;                                                                             //RADDAT
-                                                                                            //RADDAT
-         return;                                                                            //RADDAT
-                                                                                            //RADDAT
-      /END-FREE
-     *                                                                                       RADDAT
-    P main...                                                                                RADDAT
-    P                 E                                                                      RADDAT
-     *                                                                                       RADDAT
+**FREE
+//===============================================================*
+//  Test: Copy file                                              *
+//---------------------------------------------------------------*
+//    CALL PGM(IFS2TEST06)                                       *
+//    CALL PGM(IFS2TEST06) PARM('\home\raddatz\fileName.ext')    *
+//===============================================================*
+//   >>PRE-COMPILER<<                                            *
+//                                                               *
+//     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                *
+//                              SRCFILE(&SL/&SF) +               *
+//                              SRCMBR(&SM);                     *
+//                                                               *
+//     >>COMPILE<<                                               *
+//       >>PARM<< TRUNCNBR(*NO);                                 *
+//       >>PARM<< DBGVIEW(*LIST);                                *
+//       >>PARM<< TGTRLS(*CURRENT);                              *
+//       >>PARM<< OPTION(*EVENTF);                               *
+//     >>END-COMPILE<<                                           *
+//                                                               *
+//     >>EXECUTE<<                                               *
+//                                                               *
+//     >>CMD<<     CRTPGM       PGM(&LI/&OB) +                   *
+//                              MODULE(&LI/&OB) +                *
+//                              ACTGRP(*NEW) +                   *
+//                              BNDSRVPGM(&LI/IFS2     +         *
+//                                        &LI/BASICS1) +         *
+//                              BNDDIR(QC2LE         ) +         *
+//                              TGTRLS(*CURRENT) +               *
+//                              DETAIL(*BASIC);                  *
+//                                                               *
+//   >>END-PRE-COMPILER<<                                        *
+//===============================================================*
+CTL-OPT DEBUG OPTION(*SRCSTMT: *NODEBUGIO);
+CTL-OPT DECEDIT('0,') DATEDIT(*DMY.);
+CTL-OPT DATFMT(*ISO) TIMFMT(*ISO);
+CTL-OPT EXPROPTS(*RESDECPOS);
+CTL-OPT EXTBININT(*YES);
+//===============================================================*
+//
+// ------------------------------------
+//  Type Definitions
+// ------------------------------------
+//
+// ------------------------------------
+//  External Prototypes
+// ------------------------------------
+/COPY QIFS2,PIFS2 
+//
+// ------------------------------------
+//  Global Fields
+// ------------------------------------
+//
+// ------------------------------------
+//  Global Constants
+// ------------------------------------
+//
+// ------------------------------------
+//  Prototypes
+// ------------------------------------
+/COPY QBASICS1,PBASICS1 
+//
+DCL-PR PGM_ENTRY_POINT EXTPGM('IFS2TEST06');
+  gi_from CHAR(32) CONST OPTIONS(*NOPASS);
+  gi_to   CHAR(32) CONST OPTIONS(*NOPASS);
+END-PR;
+//
+DCL-PR main;
+  i_from VALUE LIKE(ifs_path_t) OPTIONS(*TRIM);
+  i_to   VALUE LIKE(ifs_path_t) OPTIONS(*TRIM);
+END-PR;
+//
+//  Sends a message to QCMD
+DCL-PR sndMsg;
+  i_text VARCHAR(128) VALUE;
+END-PR;
+//
+//===============================================================*
+//  Program Entry Point
+//===============================================================*
+//
+DCL-PI PGM_ENTRY_POINT;
+  gi_from CHAR(32) CONST OPTIONS(*NOPASS);
+  gi_to   CHAR(32) CONST OPTIONS(*NOPASS);
+END-PI;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+if (%parms() >= 1);
+  main(gi_from: gi_to);
+else;
+  main('': '');
+endif;
+
+*inlr = *on;
+
+return;
+
+//
+//===============================================================*
+//  *** private ***
+//  Sends a message to the caller.
+//===============================================================*
+DCL-PROC sndMsg;
+  //
+  DCL-PI *N;
+    i_text VARCHAR(128) VALUE;
+  END-PI;
+  //
+  //  Return value
+  DCL-S pBuffer POINTER INZ;
+  //
+  //  Local fields
+  DCL-S msgKey CHAR(4) INZ;
+  //
+  DCL-DS qMsgF QUALIFIED INZ;
+    name CHAR(10);
+    lib  CHAR(10);
+  END-DS;
+  //
+  DCL-DS errCode QUALIFIED INZ;
+    bytPrv   INT(10);
+    bytAvl   INT(10);
+    excID    CHAR(7);
+    reserved CHAR(1);
+    excDta   CHAR(256);
+  END-DS;
+  //
+  //  Send Program Message (QMHSNDPM) API
+  DCL-PR QMHSNDPM EXTPGM('QMHSNDPM');
+    i_msgID      CHAR(7) CONST;
+    i_qMsgF      CHAR(20) CONST;
+    i_msgData    CHAR(32767) CONST OPTIONS(*VARSIZE);
+    i_length     INT(10) CONST;
+    i_msgType    CHAR(10) CONST;
+    i_callStkE   CHAR(32767) CONST OPTIONS(*VARSIZE);
+    i_callStkC   INT(10) CONST;
+    o_msgKey     CHAR(4);
+    io_ErrCode   CHAR(32767) OPTIONS(*VARSIZE);
+    i_lenStkE    INT(10) CONST OPTIONS(*NOPASS);
+    i_callStkEQ  CHAR(20) CONST OPTIONS(*NOPASS);
+    i_wait       INT(10) CONST OPTIONS(*NOPASS);
+    i_callStkEDT CHAR(10) CONST OPTIONS(*NOPASS);
+    i_ccsid      INT(10) CONST OPTIONS(*NOPASS);
+  END-PR;
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  clear qMsgF;
+  qMsgF.name = 'QCPFMSG';
+  qMsgF.lib  = '*LIBL';
+
+  clear errCode;
+  errCode.bytPrv = %size(errCode);
+
+  QMHSNDPM('CPF9897': qMsgF: i_text: %len(i_text): '*INFO'
+           : '*CTLBDY': 1
+           : msgKey: errCode);
+
+  return;
+
+//
+END-PROC;
+//
+//===============================================================*
+//  Main procedure
+//===============================================================*
+DCL-PROC main;
+  //
+  DCL-PI *N;
+    i_from VALUE LIKE(ifs_path_t) OPTIONS(*TRIM);
+    i_to   VALUE LIKE(ifs_path_t) OPTIONS(*TRIM);
+  END-PI;
+  //
+  //  Helper fields
+  DCL-S rc INT(10) INZ;
+  DCL-DS msg LIKEDS(msg_t) INZ;
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  //Copy file
+  rc = ifsFile_copy(i_from: i_to: cIFS_COPY_FILE_APPEND: *omit: msg);
+  if (rc = cIFS_ERROR);
+    sndMsg(f_rtvMsgText(msg));
+  endif;
+
+  return;
+
+//
+END-PROC MAIN;
+//

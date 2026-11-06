@@ -1,10 +1,12 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1023
-      *
-      * Fehler beim Erstellen eines temporären Pfadnamens aufgetret
-      *
-     D IFS1023         DS
-     D  IFS10231                    010P 0 INZ(*ZEROS )
-     D  IFS10232                    128A   INZ(*BLANKS)
-     D IFS1023_SIZE    S              8B 0 INZ(0134)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1023
+//
+// Fehler beim Erstellen eines temporären Pfadnamens aufgetret
+//
+DCL-DS IFS1023;
+  IFS10231 PACKED(010) INZ(*ZEROS);
+  IFS10232 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1023_SIZE BINDEC(8) INZ(0134);
+//

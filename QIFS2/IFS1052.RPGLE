@@ -1,9 +1,11 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1052
-      *
-      * Objekt '&1' ist kein symbolischer Link.
-      *
-     D IFS1052         DS
-     D  IFS10521                    256A   INZ(*BLANKS)
-     D IFS1052_SIZE    S              8B 0 INZ(0256)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1052
+//
+// Objekt '&1' ist kein symbolischer Link.
+//
+DCL-DS IFS1052;
+  IFS10521 CHAR(256) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1052_SIZE BINDEC(8) INZ(0256);
+//

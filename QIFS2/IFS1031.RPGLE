@@ -1,11 +1,13 @@
-      *---------------------------------------------------------------
-      * Datenstruktur für Message-ID : IFS1031
-      *
-      * Fehler beim Löschen des Verzeichnisses '&1' aufgetreten.
-      *
-     D IFS1031         DS
-     D  IFS10311                    256A   INZ(*BLANKS)
-     D  IFS10312                    010P 0 INZ(*ZEROS )
-     D  IFS10313                    128A   INZ(*BLANKS)
-     D IFS1031_SIZE    S              8B 0 INZ(0390)
-      *
+**FREE
+//---------------------------------------------------------------
+// Datenstruktur für Message-ID : IFS1031
+//
+// Fehler beim Löschen des Verzeichnisses '&1' aufgetreten.
+//
+DCL-DS IFS1031;
+  IFS10311 CHAR(256) INZ(*BLANKS);
+  IFS10312 PACKED(010) INZ(*ZEROS);
+  IFS10313 CHAR(128) INZ(*BLANKS);
+END-DS;
+DCL-S IFS1031_SIZE BINDEC(8) INZ(0390);
+//
